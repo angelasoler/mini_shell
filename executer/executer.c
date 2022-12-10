@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:57:10 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/05 23:20:16 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/10 21:11:34 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	get_pid(t_data *data, t_cmd *node)
 	int	i;
 
 	i = node->index;
-	if (!data->path || verify_cmd(data->path, node))
+	if (!data->path || node->type == BUILTIN || verify_cmd(data->path, node))
 	{
 		data->exec.inter.id[i] = fork();
 		if (data->exec.inter.id[i] == 0)
@@ -73,7 +73,7 @@ void	executer(t_data *data)
 
 	data->exec.n_args = count_pipes(data->cmds);
 	node = data->cmds;
-	if (exec_builtin(data, node, 0))
+	if (exec_builtin(data, node, 1))
 		return ;
 	init_proc_data(data);
 	i = 0;

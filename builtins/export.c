@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/05 21:27:17 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/10 21:05:14 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,12 @@ int	valid_env_var(char *env)
 	return (1);
 }
 
-void	builtin_export(t_data *data, char *arg)
+void	create_replace_var(t_data *data, char *arg)
 {
 	unsigned int	i;
 	t_env			*node;
 	char			**key_value;
 
-	if (!valid_env_var(arg))
-		return ;
 	key_value = ft_split(arg, '=');
 	node = get_env_var(data, key_value[0]);
 	if (!node)
@@ -43,6 +41,19 @@ void	builtin_export(t_data *data, char *arg)
 	free_and_count_array(key_value, free);
 }
 
+int	builtin_export(t_data *data, char *arg)
+{
+	if (!arg)
+	{
+		builtin_env(data->hash_table, 1);
+		return (0);
+	}
+	if (!valid_env_var(arg))
+		return (1);
+	create_replace_var(data, arg);
+	return (0);
+}
+
 // - export deve funcionar unicamente com formato key=value
 		// - quando usado com pipe retorna menssagem
 			// - tmbm passando numero como nome da var
@@ -50,4 +61,3 @@ void	builtin_export(t_data *data, char *arg)
 			// bash: export: `1=sdfsd': not a valid identifier
 			// export HH+JJ | ls
 			// bash: export: `HH+JJ': not a valid identifier
-// - Deve retornar exit code, 1 se falha 0 em success

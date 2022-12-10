@@ -36,7 +36,7 @@ echo "I'm the infile file" > infile
 < infile cat | grep -i s | sort | head -n 3 | uniq | tail -5 | wc -l >> output_shell
 < infile cat | grep -i s | head -n 3 | sort | uniq | tail -5 >> output_shell
 echo -e "$CYAN ###############################################################$RESET"
-echo -e "$CYAN ######################$RESET$GREEN minishell program$RESET$CYAN ######################$RESET"
+echo -e "$CYAN ######################$RESET$GREEN minishell program $RESET$CYAN ######################$RESET"
 echo -e "$CYAN ###############################################################$RESET"
 ./minishell <<EOF
 < infile ls -l | wc -l >> output_minishell
