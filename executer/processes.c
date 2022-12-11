@@ -66,6 +66,11 @@ void	free_fds(t_data *data, int n_cmds)
 
 int	ft_exec(t_data *data, t_cmd *node)
 {
+	struct sigaction	sa;
+
+	ft_memset(&sa, 0, sizeof(sa));
+	sa.sa_handler = SIG_IGN;
+	sigaction(SIGPIPE, &sa, NULL);
 	dup_fds(data, node);
 	close_fds(data);
 	if (!exec_builtin(data, node, 0))
@@ -73,12 +78,9 @@ int	ft_exec(t_data *data, t_cmd *node)
 		execve(node->exec_cmd, node->args, 0);
 		print_cmd_error(node->args[0], 0);
 	}
-	free_and_count_array(data->path, free);
-	free_hash_table(data);
-	ft_cmdclear(&data->cmds, free);
-	free(data->line);
 	free_fds(data, data->exec.n_args);
-	exit (0);
+	builtin_exit(data);
+	return (0);
 }
 
 int	wait_and_free(t_data *data)

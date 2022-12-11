@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <signal.h>
 # include "libft.h"
 # include "parser.h"
 # include "executer.h"
