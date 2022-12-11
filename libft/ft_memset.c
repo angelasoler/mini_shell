@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/10 15:13:38 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/11 15:32:15 by asoler           ###   ########.fr       */
+/*   Created: 2022/04/06 15:02:21 by asoler            #+#    #+#             */
+/*   Updated: 2022/04/06 22:25:05 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "../includes/libft.h"
 
-void	builtin_cd(t_data *data, char *path)
+void	*ft_memset(void *s, int c, size_t n)
 {
-	char	*join_pwd_path;
-	char	*current_path;
+	unsigned int	i;
+	char			*s1;
 
-	if (!path)
-		path = get_env_var(data, "HOME")->value;
-	if (chdir(path))
-		print_cmd_error(path, 0);
-	else
+	i = 0;
+	s1 = (char *) s;
+	while (i < n)
 	{
-		current_path = getcwd(0, 0);
-		join_pwd_path = ft_strjoin("PWD=", current_path);
-		builtin_export(data, join_pwd_path);
-		free(join_pwd_path);
-		free(current_path);
+		s1[i] = c;
+		i++;
 	}
+	return (s);
 }
