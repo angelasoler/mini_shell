@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/10 21:13:44 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/11 15:21:30 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 		else if (!ft_strncmp(node->args[0], "exit", 5))
 			builtin_exit(data);
 		else if (!ft_strncmp(node->args[0], "cd", 4))
-			builtin_cd(node->args[1]);
+			builtin_cd(data, node->args[1]);
 	}
 	else
 		builtin_export(data, node->args[1]);
