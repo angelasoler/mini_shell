@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 21:35:14 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/05 21:24:22 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/17 23:19:36 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@ void	builtin_exit(t_data *data)
 	free_hash_table(data);
 	ft_cmdclear(&data->cmds, free);
 	free(data->line);
+	rl_clear_history();
 	exit(0);
 }

@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/11 15:20:50 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/17 20:54:18 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # define APPEND 4
 # define BUILTIN 6
 
+extern int	global_sig_handler;
+
 typedef struct s_data
 {
 	char	*line;
@@ -34,6 +36,9 @@ typedef struct s_data
 	t_cmd	*cmds;
 	t_env	**hash_table;
 }	t_data;
+
+
+void	sig_handler(int signal);
 
 void	prompt(t_data *data);
 

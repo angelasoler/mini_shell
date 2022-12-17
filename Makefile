@@ -51,7 +51,8 @@ SRC =	_minishell_/minishell.c \
 		builtins/unset.c \
 		builtins/env.c \
 		builtins/cd.c \
-		builtins/builtins_utils.c
+		builtins/builtins_utils.c \
+		signals/sig_handler.c
 
 OBJ = $(SRC:.c=.o)
 
