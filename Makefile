@@ -81,6 +81,7 @@ clean:
 	@rm -rf parser/*.o
 	@rm -rf executer/*.o
 	@rm -rf builtins/*.o
+	@rm -rf signals/*.o
 
 fclean_all: fclean
 	make fclean -C libft
