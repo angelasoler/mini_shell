@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:00:23 by asoler            #+#    #+#             */
-/*   Updated: 2022/11/13 03:04:57 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/24 02:03:06 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,45 @@ void	heredoc_readline(char *delimiter, int fd)
 char	*heredoc(t_file *lst)
 {
 	char	*file_name;
+	char	*buf;
+	int		pipe_fd[2];
 	int		fd;
+	int		status;
+	int		pid;
 
-	file_name = find_file_name(lst->name);
-	fd = open(file_name, O_APPEND | O_CREAT | O_WRONLY, 0644);
-	heredoc_readline(lst->name, fd);
+	pipe(pipe_fd);
+	pid = fork();
+	if (pid == 0)
+	{
+		close(pipe_fd[0]);
+		heredoc_readline(lst->name, pipe_fd[1]);
+		dup2(pipe_fd[1], 1);
+		close(pipe_fd[1]);
+		exit(0);
+		// builtin_exit();
+	}
+	else
+	{
+		file_name = find_file_name(lst->name);
+		fd = open(file_name, O_APPEND | O_CREAT | O_WRONLY, 0644);
+		close(pipe_fd[1]);
+		buf = get_next_line(pipe_fd[0]);
+		while (buf)
+		{
+			write(fd, buf, ft_strlen(buf));
+			free(buf);
+			buf = get_next_line(pipe_fd[0]);
+		}
+		close(pipe_fd[0]);
+		waitpid(pid, &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			//usar variavel global para exit code
+			close(fd);
+			WTERMSIG(status);
+			return(NULL);
+		}
+	}
 	close(fd);
 	return (file_name);
 }

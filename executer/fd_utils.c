@@ -6,16 +6,16 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:00:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/11/26 16:27:28 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/24 02:07:41 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	redir_lst_fd_init(t_file *lst, int mode)
+int	redir_lst_fd_init(t_file *lst, int mode)
 {
 	if (!lst)
-		return ;
+		return (1);
 	while (lst)
 	{
 		if (lst->type == O_REDIR)
@@ -26,7 +26,10 @@ void	redir_lst_fd_init(t_file *lst, int mode)
 			lst->fd = open(lst->name, O_RDONLY);
 		else
 		{
+			signal(SIGINT, hd_sighandler);
 			lst->hd_file = heredoc(lst);
+			if (!lst->hd_file)
+				return (0);
 			lst->fd = open(lst->hd_file, O_RDONLY);
 		}
 		verify_access(lst->name, mode);
@@ -35,6 +38,7 @@ void	redir_lst_fd_init(t_file *lst, int mode)
 		else
 			break ;
 	}
+	return (1);
 }
 
 static int	get_files_fds(t_cmd *node)
@@ -42,9 +46,15 @@ static int	get_files_fds(t_cmd *node)
 	while (node)
 	{
 		if (node->infiles)
-			redir_lst_fd_init(node->infiles, W_OK);
+		{
+			if (!redir_lst_fd_init(node->infiles, W_OK))
+				return (0);
+		}
 		if (node->outfiles)
-			redir_lst_fd_init(node->outfiles, R_OK);
+		{
+			if (!redir_lst_fd_init(node->outfiles, R_OK))
+				return (0);
+		}
 		if (node->next)
 			node = node->next;
 		else
@@ -92,10 +102,14 @@ int	init_fds(t_data *data)
 	int		n_cmds;
 	int		i;
 
-	get_files_fds(data->cmds);
+	if (!get_files_fds(data->cmds))
+	{
+		close_fds(data);
+		return (1);
+	}
 	n_cmds = data->exec.n_args;
-	if (!n_cmds)
-		return (0);
+	// if (!n_cmds)
+	// 	return (0);
 	inter = &data->exec.inter;
 	i = 0;
 	while (i < n_cmds)

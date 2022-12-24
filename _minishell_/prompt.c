@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/12/22 14:33:18 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/24 02:06:31 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,6 @@ void	prompt(t_data *data)
 		free_and_count_array(data->path, free);
 		return ;
 	}
+	signal(SIGINT, chld_sighandler);
 	analize_line(data);
 }
