@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/27 18:32:21 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 22:01:24 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@
 # define APPEND 4
 # define BUILTIN 6
 
-extern int	global_sig_handler;
-
 typedef struct s_data
 {
 	char	*line;
@@ -36,7 +34,6 @@ typedef struct s_data
 	t_cmd	*cmds;
 	t_env	**hash_table;
 }	t_data;
-
 
 void	sig_handler(int pid);
 void	chld_sighandler(int pid);
@@ -67,6 +64,7 @@ int		wait_and_free( t_data *data);
 
 int		init_fds(t_data *data);
 void	close_fds(t_data *data);
+void	free_fds(t_data *data, int n_cmds);
 
 char	*heredoc(t_file *lst);
 

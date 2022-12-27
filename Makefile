@@ -43,6 +43,7 @@ SRC =	_minishell_/minishell.c \
 		parser/expansions_utils.c \
 		executer/executer.c \
 		executer/fd_utils.c \
+		executer/init_redirs.c \
 		executer/processes.c \
 		executer/access_utils.c \
 		executer/heredoc.c \

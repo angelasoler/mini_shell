@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/27 17:47:41 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 23:44:22 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ void	free_fds(t_data *data, int n_cmds)
 		n_cmds--;
 		free(data->exec.inter.fd[n_cmds]);
 	}
-	free_and_unlink_hd_files(data);
 	free(data->exec.inter.fd);
 }
 
@@ -73,7 +72,9 @@ int	ft_exec(t_data *data, t_cmd *node)
 		execve(node->exec_cmd, node->args, 0);
 		print_cmd_error(node->args[0], 0);
 	}
+	free_and_unlink_hd_files(data);
 	free_fds(data, data->exec.n_args);
+	free_and_unlink_hd_files(data);
 	builtin_exit(data);
 	return (0);
 }
@@ -99,11 +100,8 @@ int	wait_and_free(t_data *data)
 		i++;
 	}
 	free_fds(data, n_cmds);
+	free_and_unlink_hd_files(data);
 	if (status < 0)
 		return (127);
-	if (WIFEXITED(status))
-		ret = WEXITSTATUS(status);
-	if (WIFSIGNALED(status))
-		ret = WTERMSIG(status);
 	return (ret);
 }
