@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/22 22:55:44 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 18:32:21 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,9 @@ typedef struct s_data
 }	t_data;
 
 
-void	sig_handler(int signal);
-void	chld_sighandler(int signal);
+void	sig_handler(int pid);
+void	chld_sighandler(int pid);
+void	hd_sighandler(int pid);
 
 void	prompt(t_data *data);
 

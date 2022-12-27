@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/24 02:06:03 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 17:47:41 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ void	free_fds(t_data *data, int n_cmds)
 
 int	ft_exec(t_data *data, t_cmd *node)
 {
-	//rever casos de SIGPIPE, pois só deve entrar nesse casos
-	// if (casosSIGPIPE)
-	// struct sigaction	sa;
-
-	// ft_memset(&sa, 0, sizeof(sa));
-	// sa.sa_handler = SIG_IGN;
-	// sigaction(SIGPIPE, &sa, NULL);
 	dup_fds(data, node);
 	close_fds(data);
 	if (!exec_builtin(data, node, 0))

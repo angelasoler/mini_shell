@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/10 21:05:14 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 17:37:56 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int	builtin_export(t_data *data, char *arg)
 	return (0);
 }
 
+//[TODO] messagem error
 // - export deve funcionar unicamente com formato key=value
 		// - quando usado com pipe retorna menssagem
 			// - tmbm passando numero como nome da var

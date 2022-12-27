@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:00:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/24 02:07:41 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 18:41:41 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	redir_lst_fd_init(t_file *lst, int mode)
 			lst->fd = open(lst->name, O_RDONLY);
 		else
 		{
-			signal(SIGINT, hd_sighandler);
 			lst->hd_file = heredoc(lst);
 			if (!lst->hd_file)
 				return (0);
