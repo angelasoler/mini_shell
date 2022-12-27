@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/11/27 14:52:04 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 19:33:04 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,18 @@ void	analize_line(t_data *data)
 	free(data->line);
 }
 
+void	treat_ctrl_d(t_data *data)
+{
+	if (!data->line)
+	{
+		free(data->line);
+		free_hash_table(data);
+		free_and_count_array(data->path, free);
+		ft_printf("exit\n");
+		exit(127);
+	}
+}
+
 void	prompt(t_data *data)
 {
 	char	*path;
@@ -29,12 +41,15 @@ void	prompt(t_data *data)
 	printf("%s\n", path);
 	free(path);
 	data->line = readline("❯ ");
+	treat_ctrl_d(data);
 	if (*data->line)
 		add_history(data->line);
 	else
 	{
 		free(data->line);
+		free_and_count_array(data->path, free);
 		return ;
 	}
+	signal(SIGINT, chld_sighandler);
 	analize_line(data);
 }

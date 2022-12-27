@@ -5,53 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/07 16:00:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/11/26 16:27:28 by asoler           ###   ########.fr       */
+/*   Created: 2022/12/27 23:55:35 by asoler            #+#    #+#             */
+/*   Updated: 2022/12/27 23:56:55 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-void	redir_lst_fd_init(t_file *lst, int mode)
-{
-	if (!lst)
-		return ;
-	while (lst)
-	{
-		if (lst->type == O_REDIR)
-			lst->fd = open(lst->name, O_TRUNC | O_CREAT | O_WRONLY, 0644);
-		else if (lst->type == APPEND)
-			lst->fd = open(lst->name, O_APPEND | O_CREAT | O_WRONLY, 0644);
-		else if (lst->type == I_REDIR)
-			lst->fd = open(lst->name, O_RDONLY);
-		else
-		{
-			lst->hd_file = heredoc(lst);
-			lst->fd = open(lst->hd_file, O_RDONLY);
-		}
-		verify_access(lst->name, mode);
-		if (lst->next)
-			lst = lst->next;
-		else
-			break ;
-	}
-}
-
-static int	get_files_fds(t_cmd *node)
-{
-	while (node)
-	{
-		if (node->infiles)
-			redir_lst_fd_init(node->infiles, W_OK);
-		if (node->outfiles)
-			redir_lst_fd_init(node->outfiles, R_OK);
-		if (node->next)
-			node = node->next;
-		else
-			break ;
-	}
-	return (1);
-}
 
 void	close_file_fds(t_cmd *node)
 {
@@ -84,28 +43,4 @@ void	close_fds(t_data *data)
 	}
 	close_file_fds(data->cmds);
 	return ;
-}
-
-int	init_fds(t_data *data)
-{
-	t_inter	*inter;
-	int		n_cmds;
-	int		i;
-
-	get_files_fds(data->cmds);
-	n_cmds = data->exec.n_args;
-	if (!n_cmds)
-		return (0);
-	inter = &data->exec.inter;
-	i = 0;
-	while (i < n_cmds)
-	{
-		if (pipe(inter->fd[i]) == -1)
-		{
-			perror("something went wrong with pipe function");
-			return (-1);
-		}
-		i++;
-	}
-	return (0);
 }

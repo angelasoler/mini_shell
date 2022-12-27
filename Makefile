@@ -43,6 +43,7 @@ SRC =	_minishell_/minishell.c \
 		parser/expansions_utils.c \
 		executer/executer.c \
 		executer/fd_utils.c \
+		executer/init_redirs.c \
 		executer/processes.c \
 		executer/access_utils.c \
 		executer/heredoc.c \
@@ -51,7 +52,8 @@ SRC =	_minishell_/minishell.c \
 		builtins/unset.c \
 		builtins/env.c \
 		builtins/cd.c \
-		builtins/builtins_utils.c
+		builtins/builtins_utils.c \
+		signals/sig_handler.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -80,6 +82,7 @@ clean:
 	@rm -rf parser/*.o
 	@rm -rf executer/*.o
 	@rm -rf builtins/*.o
+	@rm -rf signals/*.o
 
 fclean_all: fclean
 	make fclean -C libft

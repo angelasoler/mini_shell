@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:57:10 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/10 21:11:34 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 20:14:41 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,8 @@ void	executer(t_data *data)
 
 	data->exec.n_args = count_pipes(data->cmds);
 	node = data->cmds;
-	if (exec_builtin(data, node, 1))
+	if (exec_builtin(data, node, 1) || init_proc_data(data))
 		return ;
-	init_proc_data(data);
 	i = 0;
 	while (node)
 	{

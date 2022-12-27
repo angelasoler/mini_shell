@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:00:23 by asoler            #+#    #+#             */
-/*   Updated: 2022/11/13 03:04:57 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 23:36:39 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,45 @@ void	heredoc_readline(char *delimiter, int fd)
 	free(line);
 }
 
+char	*fork_hd(t_file *lst, char *hd_file_name, int hd_file_fd)
+{
+	int		status;
+
+	lst->hd_pid = fork();
+	hd_sighandler(lst->hd_pid);
+	if (lst->hd_pid == 0)
+	{
+		heredoc_readline(lst->name, hd_file_fd);
+		close(hd_file_fd);
+		return (NULL);
+	}
+	else
+	{
+		waitpid(lst->hd_pid, &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			close(hd_file_fd);
+			WTERMSIG(status);
+			unlink(hd_file_name);
+			ft_printf("\n");
+			return (NULL);
+		}
+	}
+	close(hd_file_fd);
+	return (hd_file_name);
+}
+
 char	*heredoc(t_file *lst)
 {
-	char	*file_name;
-	int		fd;
+	char	*hd_file_name;
+	int		hd_file_fd;
 
-	file_name = find_file_name(lst->name);
-	fd = open(file_name, O_APPEND | O_CREAT | O_WRONLY, 0644);
-	heredoc_readline(lst->name, fd);
-	close(fd);
-	return (file_name);
+	hd_file_name = find_file_name(lst->name);
+	hd_file_fd = open(hd_file_name, O_APPEND | O_CREAT | O_WRONLY, 0644);
+	if (!fork_hd(lst, hd_file_name, hd_file_fd))
+	{
+		free(hd_file_name);
+		return (NULL);
+	}
+	return (hd_file_name);
 }

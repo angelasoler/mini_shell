@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:29:26 by asoler            #+#    #+#             */
-/*   Updated: 2022/11/26 20:06:54 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/27 20:11:31 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ typedef struct s_file
 	char			*hd_file;
 	int				type;
 	int				fd;
+	int				hd_pid;
 	struct s_file	*next;
 }	t_file;
 
