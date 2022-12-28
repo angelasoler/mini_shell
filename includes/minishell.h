@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/27 22:01:24 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/28 19:52:13 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ void	prompt(t_data *data);
 
 int		exec_builtin(t_data *data, t_cmd *node, int is_single);
 void	builtin_exit(t_data *data);
-int		builtin_export(t_data *data, char *arg);
-int		builtin_unset(t_data *data, char *key);
-void	builtin_env(t_env *hash_table[TABLE_SIZE], int flag_export);
 void	builtin_cd(t_data *data, char *path);
+int		builtin_unset(t_data *data, char *key);
+int		builtin_export(t_data *data, char *arg, int is_single);
+void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single);
 
 t_cmd	*get_file_structures(t_data *data);
 
