@@ -32,6 +32,8 @@ SRC =	ft_itoa.c \
 		ft_lstnew.c \
 		ft_memcpy.c \
 		ft_isalnum.c \
+		ft_isalpha.c \
+		ft_isdigit.c \
 		ft_isspace.c \
 		ft_isredirect.c \
 		ft_memset.c
