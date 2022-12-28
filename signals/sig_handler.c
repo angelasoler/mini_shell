@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 23:15:24 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/27 22:58:12 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/28 17:49:58 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	sig_handler(int pid)
 
 	(void)pid;
 	path = getcwd(0, 0);
-	ft_printf("\n%s\n", path);
+	printf("\033[1;34m@:\033[0m\033[1;35m%s\033[0m\n", path);
 	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();

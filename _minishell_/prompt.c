@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/12/27 19:33:04 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/28 17:49:07 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	prompt(t_data *data)
 	char	*path;
 
 	path = getcwd(0, 0);
-	printf("%s\n", path);
+	printf("\033[1;34m@:\033[0m\033[1;35m%s\033[0m\n", path);
 	free(path);
-	data->line = readline("❯ ");
+	data->line = readline("\033[1;32m❯\033[0m ");
 	treat_ctrl_d(data);
 	if (*data->line)
 		add_history(data->line);
