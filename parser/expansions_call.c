@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansions_call.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfranco- <vfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:08:18 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/11/23 11:32:15 by vfranco-         ###   ########.fr       */
+/*   Updated: 2022/12/29 19:59:58 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ void	expand_file(t_data data, t_cmd ***cmds, int mode)
 		lst = (*(*cmds))->infiles;
 	while (lst)
 	{
-		tilde_expansion(data, &lst->name);
-		env_var_expansion(data, &lst->name);
+		if (lst->name)
+		{
+			tilde_expansion(data, &lst->name);
+			env_var_expansion(data, &lst->name);
+		}
 		lst = lst->next;
 	}
 }

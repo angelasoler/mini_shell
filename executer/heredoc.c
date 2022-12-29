@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:00:23 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/29 04:50:58 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 20:03:23 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ char	*heredoc(t_file *lst)
 	char	*hd_file_name;
 	int		hd_file_fd;
 
+	if (!lst->name)
+		return (NULL);
 	hd_file_name = find_file_name(lst->name);
 	hd_file_fd = open(hd_file_name, O_APPEND | O_CREAT | O_WRONLY, 0644);
 	if (!fork_hd(lst, hd_file_name, hd_file_fd))

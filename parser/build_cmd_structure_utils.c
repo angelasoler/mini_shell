@@ -3,14 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd_structure_utils.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfranco- <vfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:06:52 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/10/24 19:26:18 by vfranco-         ###   ########.fr       */
+/*   Updated: 2022/12/30 00:13:42 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+int	verify_operators(char *line, char op)
+{
+	int	count;
+
+	count = 0;
+	if (*line == '|')
+		return (0);
+	while (*line)
+	{
+		if (*line != op && count < 3)
+			count = 0;
+		if (*line == op)
+			count++;
+		if ((count > 1 && op == '|') || count > 2)
+			return (0);
+		line++;
+	}
+	return (1);
+}
 
 void	copy_through_quotes(char *s, char **new_s, int *i, int *j)
 {
@@ -43,6 +63,8 @@ t_cmd	*ft_split_to_cmd_lst(char *line, char delimiter)
 		i++;
 	}
 	ft_clear_array(phrases);
+	if (!lst)
+		ft_cmdclear(&lst, free);
 	return (lst);
 }
 

@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 23:55:35 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/27 23:56:55 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 00:23:50 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	close_file_fds(t_cmd *node)
 {
 	while (node)
 	{
-		if (node->infiles)
+		if (node->infiles && node->infiles->fd != -1)
 			close(node->infiles->fd);
 		if (node->outfiles)
 			close(node->outfiles->fd);

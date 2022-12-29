@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/12/29 05:23:50 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 00:21:18 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,13 @@
 void	analize_line(t_data *data)
 {
 	data->cmds = get_file_structures(data);
-	executer(data);
+	if (data->cmds)
+		executer(data);
+	else
+	{
+		ft_printf("bash: %s: sintax error\n", data->line);
+		g_exit_code = 2;
+	}
 	free_and_count_array(data->path, free);
 	ft_cmdclear(&data->cmds, free);
 	free(data->line);

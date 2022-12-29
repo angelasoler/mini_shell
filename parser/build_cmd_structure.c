@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   build_cmd_structure.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfranco- <vfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 21:37:21 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/11/21 11:28:05 by vfranco-         ###   ########.fr       */
+/*   Updated: 2022/12/30 00:13:36 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ static int	add_file_node(char *line, int **i, t_file **file_lst, int t)
 		(**i)++;
 	word = ft_worddup(line + (**i), " <>");
 	ft_file_addback(file_lst, ft_filenew(word, t));
-	(**i) += ft_strlen(word);
+	if (word)
+		(**i) += ft_strlen(word);
 	return (CONTINUE);
 }
 
@@ -95,6 +96,10 @@ t_cmd	*get_file_structures(t_data *data)
 	t_cmd	*cmds;
 	t_cmd	*cmds_iter;
 
+	if (!verify_operators(data->line, '|') || \
+		!verify_operators(data->line, '<') || \
+		!verify_operators(data->line, '>'))
+		return (0);
 	cmds = ft_split_to_cmd_lst(data->line, '|');
 	cmds_iter = cmds;
 	while (cmds_iter)
