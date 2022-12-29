@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:08:18 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/04 01:18:24 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 05:39:25 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ void	env_var_substitution(t_data data, char ***s, size_t *i)
 	free(word);
 }
 
+void	get_exit_status(t_data data, char ***s)
+{
+	free((*(*s)));
+	(*(*s)) = ft_itoa(data.exit_code);
+}
+
 void	env_var_expansion(t_data data, char **s)
 {
 	size_t	i;
@@ -73,7 +79,12 @@ void	env_var_expansion(t_data data, char **s)
 	{
 		pass_through_quotes(*s, &i, NULL);
 		if ((*s)[i] == '$')
-			env_var_substitution(data, &s, &i);
+		{
+			if ((*s)[i + 1] == '?' && !(*s)[i + 2])
+				get_exit_status(data, &s);
+			else
+				env_var_substitution(data, &s, &i);
+		}
 		i++;
 	}
 }

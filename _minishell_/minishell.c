@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:17 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/29 04:44:33 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 05:25:37 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char **argv, char **envp)
 	alloc_env_hash(envp, &data);
 	while (1)
 	{
+		data.exit_code = g_exit_code;
 		signal(SIGINT, sig_handler);
 		signal(SIGQUIT, SIG_IGN);
 		set_exec_paths(&data);
