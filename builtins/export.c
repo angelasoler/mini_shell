@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/28 19:30:27 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:50:42 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int	builtin_export(t_data *data, char *arg, int is_single)
 	if (!arg)
 	{
 		builtin_env(data->hash_table, 1, is_single);
-		return (0);
+		return (g_exit_code);
 	}
 	if (valid_env_var(arg) < 0)
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/28 19:52:13 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:43:49 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # define O_REDIR 3
 # define APPEND 4
 # define BUILTIN 6
+
+extern int	g_exit_code;
 
 typedef struct s_data
 {

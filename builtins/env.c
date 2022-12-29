@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:29:01 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/28 19:52:31 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:50:38 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	env_parent(int pid)
 	{
 		WTERMSIG(status);
 		ft_printf("\n");
+		g_exit_code = 130;
 	}
 }
 
@@ -46,4 +47,6 @@ void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single)
 			print_env_lst(hash_table[i], export);
 		i++;
 	}
+	if (single && pid == 0)
+		exit (0);
 }

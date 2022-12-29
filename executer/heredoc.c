@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 13:00:23 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/27 23:36:39 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:50:58 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,9 @@ char	*fork_hd(t_file *lst, char *hd_file_name, int hd_file_fd)
 		if (WIFSIGNALED(status))
 		{
 			close(hd_file_fd);
-			WTERMSIG(status);
 			unlink(hd_file_name);
 			ft_printf("\n");
+			g_exit_code = 130;
 			return (NULL);
 		}
 	}
@@ -101,5 +101,6 @@ char	*heredoc(t_file *lst)
 		free(hd_file_name);
 		return (NULL);
 	}
+	g_exit_code = 0;
 	return (hd_file_name);
 }
