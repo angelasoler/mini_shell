@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/28 19:52:13 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 05:13:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,13 @@
 # define APPEND 4
 # define BUILTIN 6
 
+extern int	g_exit_code;
+
 typedef struct s_data
 {
 	char	*line;
 	char	**path;
+	int		exit_code;
 	t_main	exec;
 	t_cmd	*cmds;
 	t_env	**hash_table;

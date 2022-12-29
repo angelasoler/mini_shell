@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/28 00:09:46 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:48:45 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,26 +81,23 @@ int	ft_exec(t_data *data, t_cmd *node)
 int	wait_and_free(t_data *data)
 {
 	int	status;
-	int	ret;
-	int	n_cmds;
 	int	i;
 
-	n_cmds = data->exec.n_args;
-	ret = 0;
 	i = 0;
 	status = -1;
-	while (i <= n_cmds)
+	while (i <= data->exec.n_args)
 	{
 		if (data->exec.inter.id[i] != -1)
-		{
-			if (waitpid(data->exec.inter.id[i], &status, 0) < 0)
-				ft_printf("Wait fail: %s\n", strerror(errno));
-		}
+			waitpid(data->exec.inter.id[i], &status, 0);
 		i++;
 	}
-	free_fds(data, n_cmds);
+	free_fds(data, data->exec.n_args);
 	free_and_unlink_hd_files(data);
-	if (status < 0)
+	if (WIFSIGNALED(status))
+		return (130);
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else
 		return (127);
-	return (ret);
+	return (0);
 }

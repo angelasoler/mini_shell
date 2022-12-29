@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/12/28 17:49:07 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 05:23:50 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	prompt(t_data *data)
 	free(path);
 	data->line = readline("\033[1;32m❯\033[0m ");
 	treat_ctrl_d(data);
+	data->exit_code = g_exit_code;
 	if (*data->line)
 		add_history(data->line);
 	else
@@ -51,5 +52,7 @@ void	prompt(t_data *data)
 		return ;
 	}
 	signal(SIGINT, chld_sighandler);
+	g_exit_code = 0;
 	analize_line(data);
+	data->exit_code = g_exit_code;
 }

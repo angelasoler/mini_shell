@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 23:15:24 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/28 19:04:11 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:51:05 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	sig_handler(int pid)
 	rl_on_new_line();
 	rl_redisplay();
 	free(path);
+	g_exit_code = 130;
 }
 
 void	chld_sighandler(int pid)

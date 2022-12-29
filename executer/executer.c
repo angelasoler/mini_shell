@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/24 17:57:10 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/27 20:14:41 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/29 04:50:49 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,5 @@ void	executer(t_data *data)
 		i++;
 	}
 	close_fds(data);
-	wait_and_free(data);
+	g_exit_code = wait_and_free(data);
 }
