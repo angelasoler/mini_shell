@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 02:06:19 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 18:10:59 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,20 @@ int	get_cmd_type(char *line)
 		|| (ft_strncmp(trimed_line, "env", 4) == 0)
 		|| (ft_strncmp(trimed_line, "exit", 5) == 0))
 		type = BUILTIN;
+	else if (ft_strncmp(trimed_line, "pwd", 2) == 0)
+		type = -1;
 	free(trimed_line);
 	return (type);
+}
+
+char	**realloc_args(char **args)
+{
+	char	**new_staff;
+
+	new_staff = ft_calloc(sizeof(char *), 2);
+	new_staff[0] = ft_strdup(args[0]);
+	free_and_count_array(args, free);
+	return (new_staff);
 }
 
 void	get_cmd_attributes(t_cmd **cmd)
@@ -37,6 +49,8 @@ void	get_cmd_attributes(t_cmd **cmd)
 	if (*(*cmd)->args)
 	{
 		(*cmd)->type = get_cmd_type((*cmd)->args[0]);
+		if ((*cmd)->type < 0)
+			(*cmd)->args = realloc_args((*cmd)->args);
 		(*cmd)->exec_cmd = ft_strdup((*cmd)->args[0]);
 	}
 	else
