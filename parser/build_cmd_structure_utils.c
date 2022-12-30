@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:06:52 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 01:30:57 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 02:05:48 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,20 @@ int	verify_operators(char *line, char op)
 	return (1);
 }
 
-void	copy_through_quotes(char *s, char **new_s, int *i, int *j)
+void	trim_file_names(t_file **lst, char *quotes)
 {
-	if (s[*i] == '\'' && ft_strchr(s + *i + 1, '\''))
+	t_file	*node;
+	char	*aux;
+
+	if (!*lst)
+		return ;
+	node = *lst;
+	while (node)
 	{
-		(*new_s)[(*j)++] = s[(*i)++];
-		while (s[*i] && s[*i] != '\'')
-			(*new_s)[(*j)++] = s[(*i)++];
-	}
-	if (s[*i] == '\"' && ft_strchr(s + *i + 1, '\"'))
-	{
-		(*new_s)[(*j)++] = s[(*i)++];
-		while (s[*i] && s[*i] != '\"')
-			(*new_s)[(*j)++] = s[(*i)++];
+		aux = ft_strtrim(node->name, quotes);
+		free(node->name);
+		node->name = aux;
+		node = node->next;
 	}
 }
 
@@ -54,6 +55,10 @@ t_cmd	*ft_split_to_cmd_lst(char *line, char delimiter)
 	t_cmd	*lst;
 	int		i;
 
+	if (!verify_operators(line, '|') || \
+		!verify_operators(line, '<') || \
+		!verify_operators(line, '>'))
+		return (0);
 	phrases = ft_split_but_through_quotes(line, delimiter);
 	lst = NULL;
 	i = 0;

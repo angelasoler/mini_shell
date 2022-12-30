@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 01:32:08 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 02:06:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,21 @@ void	trim_args(t_cmd **cmd, char *quotes)
 		free(node->args[i]);
 		node->args[i] = aux;
 		i++;
+	}
+}
+
+void	copy_through_quotes(char *s, char **new_s, int *i, int *j)
+{
+	if (s[*i] == '\'' && ft_strchr(s + *i + 1, '\''))
+	{
+		(*new_s)[(*j)++] = s[(*i)++];
+		while (s[*i] && s[*i] != '\'')
+			(*new_s)[(*j)++] = s[(*i)++];
+	}
+	if (s[*i] == '\"' && ft_strchr(s + *i + 1, '\"'))
+	{
+		(*new_s)[(*j)++] = s[(*i)++];
+		while (s[*i] && s[*i] != '\"')
+			(*new_s)[(*j)++] = s[(*i)++];
 	}
 }
