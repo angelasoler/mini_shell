@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2022/12/30 02:06:31 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 03:54:06 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,19 @@ void	analize_line(t_data *data)
 	free(data->line);
 }
 
+char	*parse_promt(void)
+{
+	char	*path;
+	char	*aux;
+
+	path = getcwd(0, 0);
+	aux = ft_strjoin("\033[1;34m@:\033[0m\033[1;35m", path);
+	free(path);
+	path = ft_strjoin(aux, "\033[0m\033[1;32m$ \033[0m");
+	free(aux);
+	return (path);
+}
+
 void	treat_ctrl_d(t_data *data)
 {
 	if (!data->line)
@@ -41,12 +54,11 @@ void	treat_ctrl_d(t_data *data)
 
 void	prompt(t_data *data)
 {
-	char	*path;
+	char	*prompt;
 
-	path = getcwd(0, 0);
-	printf("\033[1;34m@:\033[0m\033[1;35m%s\033[0m\n", path);
-	free(path);
-	data->line = readline("\033[1;32m❯\033[0m ");
+	prompt = parse_promt();
+	data->line = readline(prompt);
+	free(prompt);
 	treat_ctrl_d(data);
 	data->exit_code = g_exit_code;
 	if (*data->line)

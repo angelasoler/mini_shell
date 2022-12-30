@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/29 04:50:42 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 02:26:56 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	print_error(char *env)
 {
 	write(2, "bash: export: `", 14);
 	ft_putstr_fd(env, 2);
-	ft_putendl_fd("': No such file or directory", 2);
+	ft_putendl_fd("': not a valid identifier", 2);
 	return (-1);
 }
 
