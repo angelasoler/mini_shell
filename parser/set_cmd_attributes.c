@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 02:06:19 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 03:49:48 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,16 @@ void	copy_through_quotes(char *s, char **new_s, int *i, int *j)
 		while (s[*i] && s[*i] != '\"')
 			(*new_s)[(*j)++] = s[(*i)++];
 	}
+}
+
+t_cmd	*free_cmd(t_cmd **cmd)
+{
+	t_cmd	*aux;
+
+	aux = *cmd;
+	free(aux->line);
+	ft_clear_array(aux->args);
+	free(aux->exec_cmd);
+	free(aux);
+	return (0);
 }

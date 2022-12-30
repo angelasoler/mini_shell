@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 21:37:21 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 02:04:58 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 03:45:32 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,15 @@ t_cmd	*get_file_structures(t_data *data)
 	cmds_iter = cmds;
 	while (cmds_iter)
 	{
+		get_cmd_attributes(&cmds_iter);
+		if (!verify_operators(cmds_iter->args[0], '<') || \
+			!verify_operators(cmds_iter->args[0], '>'))
+			return (free_cmd(&cmds_iter));
+		trim_args(&cmds_iter, "\"");
 		cmds_iter->outfiles = extract_files(&cmds_iter, O_REDIR);
 		cmds_iter->infiles = extract_files(&cmds_iter, I_REDIR);
 		trim_file_names(&cmds_iter->outfiles, "\"");
 		trim_file_names(&cmds_iter->infiles, "\"");
-		get_cmd_attributes(&cmds_iter);
-		trim_args(&cmds_iter, "\"");
 		expansions(*data, &cmds_iter);
 		trim_args(&cmds_iter, "\'");
 		trim_file_names(&cmds_iter->outfiles, "\'");

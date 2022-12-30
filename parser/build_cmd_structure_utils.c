@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:06:52 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 02:05:48 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 03:52:07 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,6 @@ t_cmd	*ft_split_to_cmd_lst(char *line, char delimiter)
 	t_cmd	*lst;
 	int		i;
 
-	if (!verify_operators(line, '|') || \
-		!verify_operators(line, '<') || \
-		!verify_operators(line, '>'))
-		return (0);
 	phrases = ft_split_but_through_quotes(line, delimiter);
 	lst = NULL;
 	i = 0;
