@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/10 19:41:54 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 01:32:08 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,22 @@ void	get_cmd_attributes(t_cmd **cmd)
 	{
 		(*cmd)->type = 0;
 		(*cmd)->exec_cmd = NULL;
+	}
+}
+
+void	trim_args(t_cmd **cmd, char *quotes)
+{
+	int		i;
+	t_cmd	*node;
+	char	*aux;
+
+	i = 0;
+	node = *cmd;
+	while (node->args[i])
+	{
+		aux = ft_strtrim(node->args[i], quotes);
+		free(node->args[i]);
+		node->args[i] = aux;
+		i++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 21:37:21 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 00:13:36 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 01:31:06 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,9 @@ t_cmd	*get_file_structures(t_data *data)
 		cmds_iter->outfiles = extract_files(&cmds_iter, O_REDIR);
 		cmds_iter->infiles = extract_files(&cmds_iter, I_REDIR);
 		get_cmd_attributes(&cmds_iter);
+		trim_args(&cmds_iter, "\"");
 		expansions(*data, &cmds_iter);
+		trim_args(&cmds_iter, "\'");
 		cmds_iter = cmds_iter->next;
 	}
 	return (cmds);
