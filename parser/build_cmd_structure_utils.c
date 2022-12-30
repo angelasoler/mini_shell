@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:06:52 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 02:05:48 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 15:04:06 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,12 @@ void	trim_file_names(t_file **lst, char *quotes)
 	node = *lst;
 	while (node)
 	{
-		aux = ft_strtrim(node->name, quotes);
-		free(node->name);
-		node->name = aux;
+		if (node->name)
+		{
+			aux = ft_strtrim(node->name, quotes);
+			free(node->name);
+			node->name = aux;
+		}
 		node = node->next;
 	}
 }
