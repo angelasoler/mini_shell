@@ -6,44 +6,52 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/30 02:26:56 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 17:21:20 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	print_error(char *env)
+int	print_error(char *key_value)
 {
 	write(2, "bash: export: `", 14);
-	ft_putstr_fd(env, 2);
+	ft_putstr_fd(key_value, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
+	return (0);
+}
+
+int	identifier_verification(char *identifier)
+{
+	int		i;
+
+	i = 0;
+	while (identifier[i])
+	{
+		if (!ft_isalnum(identifier[i]))
+			return (print_error(identifier));
+		i++;
+	}
 	return (-1);
 }
 
 int	valid_env_var(char *env)
 {
+	int		ret;
 	char	**key_value;
-	int		i;
 
-	i = 1;
+	ret = 0;
 	key_value = NULL;
-	if (ft_isdigit(*env) || !ft_isalpha(*env))
-		return (print_error(env));
-	if (!ft_strrchr(env, '='))
+	if (ft_strrchr(env, '='))
 	{
 		key_value = ft_split(env, '=');
-		while (key_value[0][i])
-		{
-			if (!ft_isalnum(key_value[0][i]))
-			{
-				free_and_count_array(key_value, free);
-				return (print_error(env));
-			}
-			i++;
-		}
+		ret = identifier_verification(key_value[0]);
 		free_and_count_array(key_value, free);
+		if (ret < 0)
+			ret = 1;
 	}
-	return (1);
+	else
+		ret = identifier_verification(env);
+	return (ret);
 }
 
 void	create_replace_var(t_data *data, char *arg)
@@ -70,13 +78,18 @@ void	create_replace_var(t_data *data, char *arg)
 
 int	builtin_export(t_data *data, char *arg, int is_single)
 {
+	int	validate;
+
 	if (!arg)
 	{
 		builtin_env(data->hash_table, 1, is_single);
 		return (g_exit_code);
 	}
-	if (valid_env_var(arg) < 0)
+	validate = valid_env_var(arg);
+	if (!validate)
 		return (1);
+	else if (validate < 0)
+		return (0);
 	create_replace_var(data, arg);
 	return (0);
 }

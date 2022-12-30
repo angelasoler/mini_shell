@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/29 04:50:22 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 16:43:39 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 	if (!ft_strncmp(node->args[0], "export", 6) && !is_single)
 	{
 		if (node->args[1])
+		{
+			g_exit_code = valid_env_var(node->args[1]);
 			return ;
+		}
 		else
 			builtin_export(data, 0, is_single);
 	}

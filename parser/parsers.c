@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsers.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vfranco- <vfranco-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 13:41:51 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/10/24 19:12:27 by vfranco-         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:29:01 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,17 @@ char	*ft_worddup(char *s1, const char *delimiters)
 	s2 = ft_memcpy(s2, s1, n);
 	s2[n] = '\0';
 	return (s2);
+}
+
+char	*parse_promt(void)
+{
+	char	*path;
+	char	*aux;
+
+	path = getcwd(0, 0);
+	aux = ft_strjoin("\033[1;34m@:\033[0m\033[1;35m", path);
+	free(path);
+	path = ft_strjoin(aux, "\033[0m\033[1;32m$ \033[0m");
+	free(aux);
+	return (path);
 }
