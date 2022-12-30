@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/30 17:21:20 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/30 17:38:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ int	identifier_verification(char *identifier)
 	int		i;
 
 	i = 0;
+	if (!ft_isalpha(*identifier))
+		return (print_error(identifier));
 	while (identifier[i])
 	{
 		if (!ft_isalnum(identifier[i]))
