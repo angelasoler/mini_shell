@@ -58,7 +58,6 @@ SRC =	_minishell_/minishell.c \
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME)
-	@make clean
 
 $(NAME): $(OBJ) $(LIBFT)
 	@echo "$(YELLOW)creating ./minishell$(RESET)"

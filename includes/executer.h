@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:35:51 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/27 19:51:02 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/31 04:03:23 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_main
 
 int		verify_access(char *path, int mode);
 int		is_absolute_path(char *arg);
-void	print_cmd_error(char *arg, int message);
+int		print_cmd_error(char *arg, int message);
+int		cd_error_treat(char **args);
 
 #endif

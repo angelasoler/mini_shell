@@ -6,13 +6,13 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 21:21:37 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/10 19:22:29 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/31 03:29:43 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	print_cmd_error(char *arg, int message)
+int	print_cmd_error(char *arg, int message)
 {
 	write(2, "bash: ", 6);
 	ft_putstr_fd(arg, 2);
@@ -20,8 +20,11 @@ void	print_cmd_error(char *arg, int message)
 		ft_putendl_fd(": No such file or directory", 2);
 	else if (message == 2)
 		ft_putendl_fd(": command not found", 2);
+	else if (message == 3)
+		ft_putendl_fd(": too many arguments", 2);
 	else
 		ft_putendl_fd(": Is a directory", 2);
+	return (1);
 }
 
 int	verify_access(char *path, int mode)

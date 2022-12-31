@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 18:10:59 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/31 02:49:04 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ void	get_cmd_attributes(t_cmd **cmd)
 	if (*(*cmd)->args)
 	{
 		(*cmd)->type = get_cmd_type((*cmd)->args[0]);
+		(*cmd)->exec_cmd = ft_strdup((*cmd)->args[0]);
 		if ((*cmd)->type < 0)
 			(*cmd)->args = realloc_args((*cmd)->args);
-		(*cmd)->exec_cmd = ft_strdup((*cmd)->args[0]);
 	}
 	else
 	{
