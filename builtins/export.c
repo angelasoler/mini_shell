@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/30 17:38:19 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/31 06:34:11 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	valid_env_var(char *env)
 
 	ret = 0;
 	key_value = NULL;
+	if (ft_strlen(env) == 1 && !identifier_verification(env))
+		return (0);
 	if (ft_strrchr(env, '='))
 	{
 		key_value = ft_split(env, '=');
@@ -56,42 +58,27 @@ int	valid_env_var(char *env)
 	return (ret);
 }
 
-void	create_replace_var(t_data *data, char *arg)
-{
-	unsigned int	i;
-	t_env			*node;
-	char			**key_value;
-
-	key_value = ft_split(arg, '=');
-	node = get_env_var(data, key_value[0]);
-	if (!node)
-	{
-		i = hash(key_value[0]);
-		node = ft_envnew(key_value[0], key_value[1]);
-		ft_env_addback(&data->hash_table[i], node);
-	}
-	else
-	{
-		free(node->value);
-		node->value = ft_strdup(key_value[1]);
-	}
-	free_and_count_array(key_value, free);
-}
-
-int	builtin_export(t_data *data, char *arg, int is_single)
+int	builtin_export(t_data *data, char **args, int is_single)
 {
 	int	validate;
+	int	i;
 
-	if (!arg)
+	i = 1;
+	if (!args[i])
 	{
 		builtin_env(data->hash_table, 1, is_single);
 		return (g_exit_code);
 	}
-	validate = valid_env_var(arg);
+	while (args[i])
+	{
+		validate = valid_env_var(args[i]);
+		if (validate == 1)
+		{
+			create_replace_var(data, args[i]);
+		}
+		i++;
+	}
 	if (!validate)
 		return (1);
-	else if (validate < 0)
-		return (0);
-	create_replace_var(data, arg);
 	return (0);
 }

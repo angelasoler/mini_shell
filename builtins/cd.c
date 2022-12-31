@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/10 15:13:38 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/31 04:37:15 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/31 06:31:45 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	refresh_vars(t_data *data, char *old_pwd)
 
 	current_path = getcwd(0, 0);
 	join_pwd_path = ft_strjoin("PWD=", current_path);
-	builtin_export(data, join_pwd_path, 0);
-	builtin_export(data, old_pwd, 0);
+	create_replace_var(data, join_pwd_path);
+	create_replace_var(data, old_pwd);
 	free(join_pwd_path);
 	free(current_path);
 }

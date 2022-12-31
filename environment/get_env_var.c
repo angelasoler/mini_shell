@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 16:54:26 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/05 22:43:28 by asoler           ###   ########.fr       */
+/*   Updated: 2022/12/31 06:34:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 t_env	*get_env_var(t_data *data, char *key)
 {
 	unsigned int	i;
-	int				len;
+	size_t			len;
 	t_env			*aux;
 
 	i = hash(key);
@@ -23,11 +23,34 @@ t_env	*get_env_var(t_data *data, char *key)
 	aux = data->hash_table[i];
 	if (!aux)
 		return (0);
-	while (ft_strncmp(key, aux->key, len))
+	while (aux)
 	{
-		if (!aux->next)
-			return (0);
+		if (!ft_strncmp(key, aux->key, len) && \
+			len == ft_strlen(aux->key))
+			break ;
 		aux = aux->next;
 	}
 	return (aux);
+}
+
+void	create_replace_var(t_data *data, char *arg)
+{
+	unsigned int	i;
+	t_env			*node;
+	char			**key_value;
+
+	key_value = ft_split(arg, '=');
+	node = get_env_var(data, key_value[0]);
+	if (!node)
+	{
+		i = hash(key_value[0]);
+		node = ft_envnew(key_value[0], key_value[1]);
+		ft_env_addback(&data->hash_table[i], node);
+	}
+	else
+	{
+		free(node->value);
+		node->value = ft_strdup(key_value[1]);
+	}
+	free_and_count_array(key_value, free);
 }

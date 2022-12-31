@@ -56,7 +56,6 @@ COMPARE=`(diff output_minishell output_shell | wc -c)`
 error=$(diff output_minishell output_shell)
 
 rm output_minishell output_shell infile
-make fclean_all
 echo -e "$CYAN ###############################################################$RESET"
 echo -e "$CYAN ###############################################################$RESET"
 
