@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:08:18 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 00:05:19 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/01 23:02:31 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,16 @@ void	env_var_substitution(t_data data, char ***s, size_t *i)
 	{
 		env_var = get_env_var(&data, word + 1);
 		if (!env_var)
-			return (free(word));
-		s_new = ft_strsubstitute((*(*s)), word, env_var->value, *i);
+			s_new = ft_calloc(sizeof(char), 1);
+		else
+		{
+			s_new = ft_strsubstitute((*(*s)), word, env_var->value, *i);
+			*i = *i + ft_strlen(env_var->value) - 1;
+		}
 		free((*(*s)));
 		(*(*s)) = s_new;
 		if (!s_new)
 			return (free(word));
-		*i = *i + ft_strlen(env_var->value) - 1;
 	}
 	free(word);
 }
@@ -75,7 +78,7 @@ void	env_var_expansion(t_data data, char **s)
 	size_t	i;
 
 	i = 0;
-	while ((*s)[i])
+	while ((*s)[0] && (*s)[i])
 	{
 		pass_through_quotes(*s, &i, NULL);
 		if ((*s)[i] == '$')

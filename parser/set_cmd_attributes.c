@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/01 22:35:18 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/01 23:12:05 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ void	trim_args(t_cmd **cmd, char *quotes)
 	node = *cmd;
 	while (node->args[i])
 	{
+		if (!node->args[i][0])
+			return ;
 		aux = ft_strtrim(node->args[i], quotes);
 		free(node->args[i]);
 		node->args[i] = aux;
