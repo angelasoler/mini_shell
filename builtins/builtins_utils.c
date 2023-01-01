@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/01 16:18:34 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/01 17:08:45 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 		exec_single_builtin(data, node, is_single);
 	else if (!ft_strncmp(node->args[0], "cd", 4))
 		cd_error_treat(node->args);
+	if (!ft_strncmp(node->args[0], "unset", 6) && !is_single)
+			g_exit_code = identifier_verification(node->args[1]) * -1;
 	if (!ft_strncmp(node->args[0], "export", 6) && !is_single)
 	{
 		if (node->args[1])
