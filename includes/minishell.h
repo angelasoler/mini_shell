@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/31 06:35:08 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/01 16:19:18 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	prompt(t_data *data);
 int		exec_builtin(t_data *data, t_cmd *node, int is_single);
 void	builtin_exit(t_data *data);
 void	builtin_cd(t_data *data, char *path, t_cmd *node);
-int		builtin_unset(t_data *data, char *key);
+int		builtin_unset(t_data *data, char **args);
 int		builtin_export(t_data *data, char **args, int is_single);
 int		valid_env_var(char *env);
 void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single);

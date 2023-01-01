@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/31 06:34:11 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/01 16:10:11 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ int	builtin_export(t_data *data, char **args, int is_single)
 	{
 		validate = valid_env_var(args[i]);
 		if (validate == 1)
-		{
 			create_replace_var(data, args[i]);
-		}
 		i++;
 	}
 	if (!validate)

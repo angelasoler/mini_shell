@@ -23,7 +23,7 @@ fi
 echo -e "$CYAN ###############################################################$RESET"
 echo -e "$CYAN ############################$RESET$GREEN make $RESET$CYAN ############################$RESET"
 echo -e "$CYAN ###############################################################$RESET"
-make re
+make
 echo "I'm the infile file" > infile
 
 >output_minishell; >output_shell; diff output_minishell output_shell
