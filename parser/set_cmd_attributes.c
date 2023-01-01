@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/31 02:49:04 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/01 22:35:18 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ int	get_cmd_type(char *line)
 	trimed_line = ft_strtrim(line, " \f\n\r\t\v");
 	if (!trimed_line)
 		return (0);
-	if ((ft_strncmp(trimed_line, "cd", 2) == 0)
-		|| (ft_strncmp(trimed_line, "export", 6) == 0)
-		|| (ft_strncmp(trimed_line, "unset", 5) == 0)
-		|| (ft_strncmp(trimed_line, "env", 4) == 0)
-		|| (ft_strncmp(trimed_line, "exit", 5) == 0))
+	if (!(ft_strncmp(trimed_line, "cd", 3))
+		|| !(ft_strncmp(trimed_line, "export", 7))
+		|| !(ft_strncmp(trimed_line, "unset", 6))
+		|| !(ft_strncmp(trimed_line, "env", 5))
+		|| !(ft_strncmp(trimed_line, "exit", 7)))
 		type = BUILTIN;
-	else if (ft_strncmp(trimed_line, "pwd", 2) == 0)
+	else if (!ft_strncmp(trimed_line, "pwd", 4))
 		type = -1;
 	free(trimed_line);
 	return (type);
