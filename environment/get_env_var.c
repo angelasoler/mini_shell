@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 16:54:26 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/31 06:34:19 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 13:50:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ t_env	*get_env_var(t_data *data, char *key)
 		return (0);
 	while (aux)
 	{
-		if (!ft_strncmp(key, aux->key, len) && \
-			len == ft_strlen(aux->key))
+		if (!ft_strncmp(key, aux->key, len + 1))
 			break ;
 		aux = aux->next;
 	}
