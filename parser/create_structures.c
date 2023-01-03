@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:02:17 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/27 20:11:24 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 00:36:43 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_file	*ft_filenew(char *name, int type)
 	lst->type = type;
 	lst->fd = -1;
 	lst->hd_pid = -1;
+	lst->hd_file = NULL;
 	lst->next = NULL;
 	return (lst);
 }

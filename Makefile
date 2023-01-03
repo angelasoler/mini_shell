@@ -46,6 +46,7 @@ SRC =	_minishell_/minishell.c \
 		executer/init_redirs.c \
 		executer/processes.c \
 		executer/access_utils.c \
+		executer/clear_utils.c \
 		executer/heredoc.c \
 		builtins/exit.c \
 		builtins/export.c \

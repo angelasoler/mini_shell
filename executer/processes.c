@@ -6,11 +6,27 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/31 03:23:09 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 01:32:23 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	dup_redir(t_data *data, t_file *node, int std_fd)
+{
+	t_file	*file;
+
+	file = node;
+	while (file->next)
+		file = file->next;
+	if (dup2(file->fd, std_fd) < 0)
+	{
+		free_fds(data, data->exec.n_args);
+		free_and_unlink_hd_files(data);
+		data->exit_code = 1;
+		builtin_exit(data);
+	}
+}
 
 void	dup_fds(t_data *data, t_cmd *node)
 {
@@ -20,47 +36,14 @@ void	dup_fds(t_data *data, t_cmd *node)
 	pipes_fds = &data->exec.inter;
 	i = node->index;
 	if (node->infiles)
-		dup2(node->infiles->fd, 0);
+		dup_redir(data, node->infiles, 0);
 	else if (node->prev)
 		dup2(pipes_fds->fd[i - 1][0], 0);
 	if (node->outfiles)
-		dup2(node->outfiles->fd, 1);
+		dup_redir(data, node->outfiles, 1);
 	else if (node->next)
 		dup2(pipes_fds->fd[i][1], 1);
 	return ;
-}
-
-void	free_and_unlink_hd_files(t_data *data)
-{
-	t_cmd	*cmd;
-	t_file	*infiles;
-
-	cmd = data->cmds;
-	while (cmd)
-	{
-		if (cmd->infiles && cmd->infiles->type == HERE_DOC)
-		{
-			infiles = cmd->infiles;
-			while (infiles)
-			{
-				unlink(infiles->hd_file);
-				free(infiles->hd_file);
-				infiles = infiles->next;
-			}
-		}
-		cmd = cmd->next;
-	}
-}
-
-void	free_fds(t_data *data, int n_cmds)
-{
-	free(data->exec.inter.id);
-	while (n_cmds > 0)
-	{
-		n_cmds--;
-		free(data->exec.inter.fd[n_cmds]);
-	}
-	free(data->exec.inter.fd);
 }
 
 int	ft_exec(t_data *data, t_cmd *node)
@@ -70,10 +53,11 @@ int	ft_exec(t_data *data, t_cmd *node)
 	if (!exec_builtin(data, node, 0))
 	{
 		execve(node->exec_cmd, node->args, 0);
-		print_cmd_error(node->args[0], 0);
+		perror(0);
 	}
 	free_fds(data, data->exec.n_args);
 	free_and_unlink_hd_files(data);
+	data->exit_code = g_exit_code;
 	builtin_exit(data);
 	return (0);
 }

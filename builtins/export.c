@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/01 16:10:11 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/02 20:57:33 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	print_error(char *key_value)
 	write(2, "bash: export: `", 14);
 	ft_putstr_fd(key_value, 2);
 	ft_putendl_fd("': not a valid identifier", 2);
-	return (0);
+	return (1);
 }
 
 int	identifier_verification(char *identifier)
@@ -33,7 +33,7 @@ int	identifier_verification(char *identifier)
 			return (print_error(identifier));
 		i++;
 	}
-	return (-1);
+	return (0);
 }
 
 int	valid_env_var(char *env)
@@ -43,15 +43,13 @@ int	valid_env_var(char *env)
 
 	ret = 0;
 	key_value = NULL;
-	if (ft_strlen(env) == 1 && !identifier_verification(env))
+	if (ft_strlen(env) == 1 && identifier_verification(env))
 		return (0);
 	if (ft_strrchr(env, '='))
 	{
 		key_value = ft_split(env, '=');
 		ret = identifier_verification(key_value[0]);
 		free_and_count_array(key_value, free);
-		if (ret < 0)
-			ret = 1;
 	}
 	else
 		ret = identifier_verification(env);
@@ -72,11 +70,9 @@ int	builtin_export(t_data *data, char **args, int is_single)
 	while (args[i])
 	{
 		validate = valid_env_var(args[i]);
-		if (validate == 1)
+		if (!validate)
 			create_replace_var(data, args[i]);
 		i++;
 	}
-	if (!validate)
-		return (1);
-	return (0);
+	return (validate);
 }

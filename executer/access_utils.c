@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/15 21:21:37 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/31 03:29:43 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 00:09:10 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ int	verify_access(char *path, int mode)
 	if (access(path, mode) < 0)
 	{
 		if (mode == R_OK || mode == W_OK)
-			ft_printf("bash: %s: %s\n", path, strerror(errno));
+		{
+			write(2, "bash: ", 6);
+			ft_putstr_fd(path, 2);
+			write(2, " : ", 3);
+			perror(0);
+		}
 		return (0);
 	}
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/01 16:19:18 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 00:48:21 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int		wait_and_free( t_data *data);
 int		init_fds(t_data *data);
 void	close_fds(t_data *data);
 void	free_fds(t_data *data, int n_cmds);
+void	free_and_unlink_hd_files(t_data *data);
 
 char	*heredoc(t_file *lst);
 

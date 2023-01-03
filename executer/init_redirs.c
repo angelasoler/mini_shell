@@ -1,22 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fd_utils.c                                         :+:      :+:    :+:   */
+/*   init_redirs.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:00:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/27 23:54:41 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 00:44:13 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
+
+void	free_all_hdfiles_names(t_data *data)
+{
+	t_cmd	*cmd;
+	t_file	*infiles;
+
+	cmd = data->cmds;
+	while (cmd)
+	{
+		if (cmd->infiles && cmd->infiles->type == HERE_DOC)
+		{
+			infiles = cmd->infiles;
+			while (infiles)
+			{
+				if (infiles->hd_file)
+					free(infiles->hd_file);
+				infiles = infiles->next;
+			}
+		}
+		cmd = cmd->next;
+	}
+}
 
 int	free_hd_data(t_data *data, int pid, char *hd_file)
 {
 	if (!pid)
 	{
 		free_fds(data, data->exec.n_args);
+		free_all_hdfiles_names(data);
 		builtin_exit(data);
 	}
 	if (!hd_file)
