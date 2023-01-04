@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/04 20:42:04 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/04 20:49:41 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	valid_env_var(char *env)
 	ret = 0;
 	key_value = NULL;
 	if (ft_strlen(env) == 1 && identifier_verification(env))
-		return (0);
+		return (1);
 	if (ft_strrchr(env, '='))
 	{
 		key_value = ft_split(env, '=');
@@ -70,7 +70,7 @@ int	builtin_export(t_data *data, char **args, int is_single)
 	while (args[i])
 	{
 		validate = valid_env_var(args[i]);
-		if (validate)
+		if (!validate)
 			create_replace_var(data, args[i]);
 		i++;
 	}
