@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:08:18 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/01 23:02:31 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 15:59:24 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,34 @@ void	tilde_expansion(t_data data, char **s)
 	}
 }
 
+char	*replace_expansion(int exp_len, int replace_len, char ***s, char *replace)
+{
+	char	*aux;
+	size_t	len;
+	char	*copy;
+	char	*ret;
+
+	copy = ft_strdup((*(*s)));
+	len = ft_strlen(copy);
+	aux = ft_calloc(sizeof(char), (len - exp_len + replace_len + 1));
+	ret = ft_strjoin(replace, &copy[exp_len]);
+	free(aux);
+	free(copy);
+	free((*(*s)));
+	return (ret);
+}
+
+void	get_exit_status(t_data data, char ***s, char *word)
+{
+	char	*exit_code;
+	int		len_exitcode;
+
+	exit_code = ft_itoa(data.exit_code);
+	len_exitcode = ft_strlen(exit_code);
+	(*(*s)) = replace_expansion(ft_strlen(word), len_exitcode, s, exit_code);
+	free(exit_code);
+}
+
 void	env_var_substitution(t_data data, char ***s, size_t *i)
 {
 	char	*word;
@@ -47,8 +75,14 @@ void	env_var_substitution(t_data data, char ***s, size_t *i)
 	t_env	*env_var;
 
 	word = ft_strcpy_until((*(*s)) + (*i), " /:");
+	ft_printf("\n%s\n", word);
 	if (!word)
 		return ;
+	if (word[1] == '?')
+	{
+		get_exit_status(data, &s[*i], word);
+		return (free(word));
+	}
 	if (word[1])
 	{
 		env_var = get_env_var(&data, word + 1);
@@ -67,12 +101,6 @@ void	env_var_substitution(t_data data, char ***s, size_t *i)
 	free(word);
 }
 
-void	get_exit_status(t_data data, char ***s)
-{
-	free((*(*s)));
-	(*(*s)) = ft_itoa(data.exit_code);
-}
-
 void	env_var_expansion(t_data data, char **s)
 {
 	size_t	i;
@@ -82,12 +110,7 @@ void	env_var_expansion(t_data data, char **s)
 	{
 		pass_through_quotes(*s, &i, NULL);
 		if ((*s)[i] == '$')
-		{
-			if ((*s)[i + 1] == '?' && !(*s)[i + 2])
-				get_exit_status(data, &s);
-			else
-				env_var_substitution(data, &s, &i);
-		}
+			env_var_substitution(data, &s, &i);
 		i++;
 	}
 }

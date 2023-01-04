@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/01/01 22:38:44 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/03 14:49:06 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	analize_line(t_data *data)
 		ft_printf("bash: %s: sintax error\n", data->line);
 		g_exit_code = 2;
 	}
+	// print_cmd_lst(data->cmds);
 	free_and_count_array(data->path, free);
 	ft_cmdclear(&data->cmds, free);
 	free(data->line);
