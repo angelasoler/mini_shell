@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/01 22:40:44 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/04 21:03:43 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	exec_piped_builtin(t_data *data, t_cmd *node)
 	if (!ft_strncmp(node->args[0], "cd", 2))
 		cd_error_treat(node->args);
 	else if (!ft_strncmp(node->args[0], "unset", 5))
-		g_exit_code = identifier_verification(node->args[1]) * (-1);
+		g_exit_code = identifier_verification(node->args[1]);
 	else if (!ft_strncmp(node->args[0], "export", 6))
 	{
 		if (node->args[1])

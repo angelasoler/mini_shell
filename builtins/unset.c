@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:21:51 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/03 13:50:14 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/04 21:03:37 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	remove_var(t_env *node, char *key, size_t key_len)
 			if (!node->next)
 				prev->next = NULL;
 			ft_envdelone(node, free);
-			g_exit_code = 1;
 			break ;
 		}
 		prev = node;
@@ -47,9 +46,9 @@ int	builtin_unset(t_data *data, char **args)
 	{
 		index = hash(args[i]);
 		node = data->hash_table[index];
-		if (identifier_verification(args[i]))
+		g_exit_code = identifier_verification(args[i]);
+		if (g_exit_code)
 		{
-			g_exit_code = 1;
 			i++;
 			continue ;
 		}
