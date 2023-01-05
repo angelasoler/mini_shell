@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:00:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/03 00:44:13 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:51:42 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	free_hd_data(t_data *data, int pid, char *hd_file)
 	{
 		free_fds(data, data->exec.n_args);
 		free_all_hdfiles_names(data);
-		builtin_exit(data);
+		builtin_exit(data, 0);
 	}
 	if (!hd_file)
 	{

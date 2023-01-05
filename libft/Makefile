@@ -5,6 +5,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 
 SRC =	ft_itoa.c \
+		ft_atoi.c \
 		ft_toupper.c \
 		ft_strlen.c \
 		ft_strjoin.c \

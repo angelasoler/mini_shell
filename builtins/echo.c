@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:23:17 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 01:21:53 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:25:48 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,3 @@ int	builtin_echo(char **args)
 		ft_printf("\n");
 	return (0);
 }
-
-// cortar aspas de dentro de aspas duplas, aspas simple não se faz nada

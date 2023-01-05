@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/03 01:32:23 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:52:34 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	dup_redir(t_data *data, t_file *node, int std_fd)
 		free_fds(data, data->exec.n_args);
 		free_and_unlink_hd_files(data);
 		data->exit_code = 1;
-		builtin_exit(data);
+		builtin_exit(data, 0);
 	}
 }
 
@@ -58,7 +58,7 @@ int	ft_exec(t_data *data, t_cmd *node)
 	free_fds(data, data->exec.n_args);
 	free_and_unlink_hd_files(data);
 	data->exit_code = g_exit_code;
-	builtin_exit(data);
+	builtin_exit(data, 0);
 	return (0);
 }
 

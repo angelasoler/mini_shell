@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/04 21:45:37 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:48:41 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	hd_sighandler(int pid);
 void	prompt(t_data *data);
 
 int		exec_builtin(t_data *data, t_cmd *node, int is_single);
-void	builtin_exit(t_data *data);
+void	builtin_exit(t_data *data, char **exit_code);
 void	builtin_cd(t_data *data, char *path, t_cmd *node);
 void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single);
 int		builtin_unset(t_data *data, char **args);
