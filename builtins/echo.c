@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:23:17 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 01:25:48 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 05:08:00 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,14 @@ int	builtin_echo(char **args)
 	int	i;
 
 	i = 1;
-	if (!ft_strncmp("-n", args[1], 3))
-		i = 2;
+	if (!args[1] || (!ft_strncmp("-n", args[1], 3) && !args[2]))
+	{
+		if (!args[1])
+			ft_printf("\n");
+		return (0);
+	}
+	if (!ft_strncmp("-n", args[i], 3))
+		i++;
 	while (args[i])
 	{
 		if (i > 1)
