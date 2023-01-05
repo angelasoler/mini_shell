@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 06:56:02 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 08:50:45 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,28 +62,19 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 
 int	exec_builtin(t_data *data, t_cmd *node, int is_single)
 {
-	int	save_stdout;
-	int	save_stdin;
+	int	*save_std_fds;
 
-	save_stdout = 0;
-	save_stdin = 0;
 	if (node->type != BUILTIN || (is_single && data->exec.n_args))
 		return (0);
 	if (is_single && !data->exec.n_args)
 	{
-		save_stdout = dup(1);
-		save_stdin = dup(0);
-		init_fds(data);
-		dup_fds(data, node);
+		save_std_fds = handle_single_builtins_redir(data, node);
+		if (!save_std_fds)
+			return (1);
 		close_file_fds(node);
 	}
 	exec_builtin_cmd(data, node, is_single);
 	if (is_single && !data->exec.n_args)
-	{
-		dup2(save_stdout, 1);
-		dup2(save_stdin, 0);
-		close(save_stdout);
-		close(save_stdin);
-	}
+		dup_close_std_fd(save_std_fds, 1);
 	return (1);
 }

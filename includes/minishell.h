@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 06:08:54 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 08:53:02 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int		builtin_unset(t_data *data, char **args);
 int		builtin_export(t_data *data, char **args, int is_single);
 int		builtin_echo(char **args);
 int		valid_env_var(char *env);
+int		*handle_single_builtins_redir(t_data *data, t_cmd *node);
 
 t_cmd	*get_file_structures(t_data *data);
 
@@ -68,10 +69,9 @@ int		ft_exec(t_data *data, t_cmd *node);
 int		verify_cmd(char **path, t_cmd *node);
 int		wait_and_free( t_data *data);
 
-void	dup_fds(t_data *data, t_cmd *node);
-void	close_file_fds(t_cmd *node);
-int		init_proc_data(t_data *data);
+int		dup_fds(t_data *data, t_cmd *node);
 int		init_fds(t_data *data);
+void	close_file_fds(t_cmd *node);
 void	close_fds(t_data *data);
 void	free_fds(t_data *data, int n_cmds);
 void	free_and_unlink_hd_files(t_data *data);

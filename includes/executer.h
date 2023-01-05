@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:35:51 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/01 16:42:11 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 08:53:28 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,6 @@ int		is_absolute_path(char *arg);
 int		print_cmd_error(char *arg, int message);
 int		cd_error_treat(char **args);
 int		identifier_verification(char *identifier);
+int		dup_close_std_fd(int *fds, int clear);
 
 #endif
