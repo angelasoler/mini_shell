@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 18:29:26 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/30 17:29:16 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:01:46 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,11 @@ char	*ft_worddup(char *s1, const char *delimiters);
 void	copy_through_quotes(char *s, char **new_s, int *i, int *j);
 void	pass_through_quotes(char *str, size_t *i, size_t *size);
 char	**ft_split_but_through_quotes(char const *s, char delimiter);
+
 int		verify_operators(char *line, char op);
+
 void	trim_args(t_cmd **cmd, char *quotes);
 void	trim_file_names(t_file **lst, char *quotes);
+size_t	len_without_quotes(char *str, char quote);
 
 #endif

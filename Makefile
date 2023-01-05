@@ -41,6 +41,8 @@ SRC =	_minishell_/minishell.c \
 		parser/expansions_call.c \
 		parser/expansions_exec.c \
 		parser/expansions_utils.c \
+		parser/treat_quotes.c \
+		parser/parsing_utils.c \
 		executer/executer.c \
 		executer/fd_utils.c \
 		executer/init_redirs.c \
@@ -53,6 +55,7 @@ SRC =	_minishell_/minishell.c \
 		builtins/unset.c \
 		builtins/env.c \
 		builtins/cd.c \
+		builtins/echo.c \
 		builtins/builtins_utils.c \
 		signals/sig_handler.c
 
@@ -90,7 +93,7 @@ fclean_all: fclean
 check:
 	dev_utils/run_pr_check.sh
 
-commit: fclean_all
+commit:
 	@$(GIT)
 
 .PONHY: re fclean clean all
