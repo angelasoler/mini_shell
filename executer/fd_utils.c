@@ -6,20 +6,33 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 23:55:35 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/30 14:07:30 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 07:23:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
+void	close_lst_fds(t_file *lst)
+{
+	t_file	*aux;
+
+	aux = lst;
+	while (aux)
+	{
+		if (aux->fd != -1)
+			close(aux->fd);
+		aux = aux->next;
+	}
+}
+
 void	close_file_fds(t_cmd *node)
 {
 	while (node)
 	{
-		if (node->infiles && node->infiles->fd != -1)
-			close(node->infiles->fd);
-		if (node->outfiles && node->outfiles->fd != -1)
-			close(node->outfiles->fd);
+		if (node->infiles)
+			close_lst_fds(node->infiles);
+		if (node->outfiles)
+			close_lst_fds(node->outfiles);
 		if (node->next)
 			node = node->next;
 		else

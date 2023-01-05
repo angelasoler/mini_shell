@@ -6,13 +6,13 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/05 04:41:27 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 08:44:04 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-void	dup_redir(t_data *data, t_file *node, int std_fd)
+int	dup_redir(t_data *data, t_file *node, int std_fd)
 {
 	t_file	*file;
 
@@ -24,14 +24,17 @@ void	dup_redir(t_data *data, t_file *node, int std_fd)
 		file = file->next;
 	}
 	if (dup2(file->fd, std_fd) >= 0)
-		return ;
+		return (1);
+	if (data->cmds->type == BUILTIN && !data->exec.n_args)
+		return (0);
 	free_fds(data, data->exec.n_args);
 	free_and_unlink_hd_files(data);
 	data->exit_code = 1;
 	builtin_exit(data, 0);
+	return (1);
 }
 
-void	dup_fds(t_data *data, t_cmd *node)
+int	dup_fds(t_data *data, t_cmd *node)
 {
 	t_inter	*pipes_fds;
 	int		i;
@@ -39,14 +42,20 @@ void	dup_fds(t_data *data, t_cmd *node)
 	pipes_fds = &data->exec.inter;
 	i = node->index;
 	if (node->infiles)
-		dup_redir(data, node->infiles, 0);
+	{
+		if (!dup_redir(data, node->infiles, 0))
+			return (0);
+	}
 	else if (node->prev)
 		dup2(pipes_fds->fd[i - 1][0], 0);
 	if (node->outfiles)
-		dup_redir(data, node->outfiles, 1);
+	{
+		if (!dup_redir(data, node->outfiles, 1))
+			return (0);
+	}
 	else if (node->next)
 		dup2(pipes_fds->fd[i][1], 1);
-	return ;
+	return (1);
 }
 
 int	ft_exec(t_data *data, t_cmd *node)
