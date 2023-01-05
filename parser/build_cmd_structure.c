@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/14 21:37:21 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 02:04:58 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 22:57:26 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ static int	add_file_node(char *line, int **i, t_file **file_lst, int t)
 	while (line[(**i)] == ' ')
 		(**i)++;
 	word = ft_worddup(line + (**i), " <>");
+	if (!word)
+		return (ERROR);
 	ft_file_addback(file_lst, ft_filenew(word, t));
 	if (word)
 		(**i) += ft_strlen(word);
