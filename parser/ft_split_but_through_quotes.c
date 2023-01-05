@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/21 12:04:51 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/11/02 18:52:58 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 03:00:08 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ char	**ft_split_but_through_quotes(char const *s, char delimiter)
 		return (result);
 	}
 	size = count_words(s, delimiter);
-	result = (char **)malloc(sizeof(char *) * (size + 1));
+	result = calloc(sizeof(char *), (size + 1));
 	if (!result)
 		return (0);
 	result_array(&result, (char *)s, delimiter);

@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 01:47:17 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 03:15:33 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	exec_piped_builtin(t_data *data, t_cmd *node)
 		if (node->args[1])
 			g_exit_code = valid_env_var(node->args[1]);
 		else
-			builtin_export(data, 0, 1);
+			builtin_export(data, node->args, 0);
 	}
 }
 

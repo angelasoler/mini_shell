@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/04 22:04:21 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 03:02:45 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,22 @@ char	**realloc_args(char **args)
 	return (new_staff);
 }
 
+void	copy_through_quotes(char *s, char **new_s, int *i, int *j)
+{
+	if (s[*i] == '\'' && ft_strchr(s + *i + 1, '\''))
+	{
+		(*new_s)[(*j)++] = s[(*i)++];
+		while (s[*i] && s[*i] != '\'')
+			(*new_s)[(*j)++] = s[(*i)++];
+	}
+	if (s[*i] == '\"' && ft_strchr(s + *i + 1, '\"'))
+	{
+		(*new_s)[(*j)++] = s[(*i)++];
+		while (s[*i] && s[*i] != '\"')
+			(*new_s)[(*j)++] = s[(*i)++];
+	}
+}
+
 void	get_cmd_attributes(t_cmd **cmd)
 {
 	(*cmd)->args = ft_split_but_through_quotes((*cmd)->line, ' ');
@@ -58,21 +74,5 @@ void	get_cmd_attributes(t_cmd **cmd)
 	{
 		(*cmd)->type = 0;
 		(*cmd)->exec_cmd = NULL;
-	}
-}
-
-void	copy_through_quotes(char *s, char **new_s, int *i, int *j)
-{
-	if (s[*i] == '\'' && ft_strchr(s + *i + 1, '\''))
-	{
-		(*new_s)[(*j)++] = s[(*i)++];
-		while (s[*i] && s[*i] != '\'')
-			(*new_s)[(*j)++] = s[(*i)++];
-	}
-	if (s[*i] == '\"' && ft_strchr(s + *i + 1, '\"'))
-	{
-		(*new_s)[(*j)++] = s[(*i)++];
-		while (s[*i] && s[*i] != '\"')
-			(*new_s)[(*j)++] = s[(*i)++];
 	}
 }
