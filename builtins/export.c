@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:11:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 03:15:16 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 23:19:42 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ int	identifier_verification(char *identifier)
 	i = 0;
 	if (!identifier)
 		return (0);
-	if (!ft_isalpha(*identifier))
+	if (!ft_isalpha(*identifier) && *identifier != '_')
 		return (print_error(identifier));
+	i++;
 	while (identifier[i])
 	{
-		if (!ft_isalnum(identifier[i]))
+		if (!ft_isalnum(identifier[i]) && identifier[i] != '_')
 			return (print_error(identifier));
 		i++;
 	}
