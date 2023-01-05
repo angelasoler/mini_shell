@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 23:55:35 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 07:21:56 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 07:23:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@ void	close_lst_fds(t_file *lst)
 
 void	close_file_fds(t_cmd *node)
 {
-	t_file	*aux;
-
-	aux = NULL;
 	while (node)
 	{
 		if (node->infiles)
