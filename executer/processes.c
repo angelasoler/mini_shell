@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/05 01:52:34 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 04:41:27 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,17 @@ void	dup_redir(t_data *data, t_file *node, int std_fd)
 
 	file = node;
 	while (file->next)
-		file = file->next;
-	if (dup2(file->fd, std_fd) < 0)
 	{
-		free_fds(data, data->exec.n_args);
-		free_and_unlink_hd_files(data);
-		data->exit_code = 1;
-		builtin_exit(data, 0);
+		if (file->fd < 0)
+			break ;
+		file = file->next;
 	}
+	if (dup2(file->fd, std_fd) >= 0)
+		return ;
+	free_fds(data, data->exec.n_args);
+	free_and_unlink_hd_files(data);
+	data->exit_code = 1;
+	builtin_exit(data, 0);
 }
 
 void	dup_fds(t_data *data, t_cmd *node)
