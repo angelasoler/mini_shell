@@ -93,7 +93,7 @@ fclean_all: fclean
 check:
 	dev_utils/run_pr_check.sh
 
-commit: fclean_all
+commit:
 	@$(GIT)
 
 .PONHY: re fclean clean all
