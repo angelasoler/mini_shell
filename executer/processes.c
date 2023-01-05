@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/05 04:41:27 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 06:50:55 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	dup_redir(t_data *data, t_file *node, int std_fd)
 		file = file->next;
 	}
 	if (dup2(file->fd, std_fd) >= 0)
+		return ;
+	if (data->cmds->type == BUILTIN && !data->exec.n_args)
 		return ;
 	free_fds(data, data->exec.n_args);
 	free_and_unlink_hd_files(data);
