@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/04 21:23:17 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 01:19:14 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 01:21:53 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	builtin_echo(char **args)
 		i = 2;
 	while (args[i])
 	{
-		if (i > 0)
+		if (i > 1)
 			ft_printf(" ", args[i]);
 		ft_printf("%s", args[i]);
 		i++;
