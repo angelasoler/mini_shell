@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 21:35:14 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 02:08:09 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 09:22:37 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,11 @@ int	treat_args(char **args)
 		else if (args[1])
 		{
 			exit_code = ft_atoi(args[1]);
+			if (ft_isalpha(args[1][0]))
+			{
+				ft_putendl_fd("exit : numeric argument required", 2);
+				exit_code = 2;
+			}
 			if (exit_code < 0)
 				exit_code = 156;
 		}
