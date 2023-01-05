@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/27 23:55:35 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 06:57:55 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/05 07:21:56 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@ void	close_lst_fds(t_file *lst)
 	t_file	*aux;
 
 	aux = lst;
-	while (lst)
+	while (aux)
 	{
-		if (lst->fd != -1)
-			close(lst->fd);
-		lst = lst->next;
+		if (aux->fd != -1)
+			close(aux->fd);
+		aux = aux->next;
 	}
 }
 
