@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/19 20:36:35 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/01 23:12:05 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/04 22:04:21 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	get_cmd_type(char *line)
 		|| !(ft_strncmp(trimed_line, "export", 7))
 		|| !(ft_strncmp(trimed_line, "unset", 6))
 		|| !(ft_strncmp(trimed_line, "env", 5))
+		|| !(ft_strncmp(trimed_line, "echo", 5))
 		|| !(ft_strncmp(trimed_line, "exit", 7)))
 		type = BUILTIN;
 	else if (!ft_strncmp(trimed_line, "pwd", 4))
@@ -57,25 +58,6 @@ void	get_cmd_attributes(t_cmd **cmd)
 	{
 		(*cmd)->type = 0;
 		(*cmd)->exec_cmd = NULL;
-	}
-}
-
-void	trim_args(t_cmd **cmd, char *quotes)
-{
-	int		i;
-	t_cmd	*node;
-	char	*aux;
-
-	i = 0;
-	node = *cmd;
-	while (node->args[i])
-	{
-		if (!node->args[i][0])
-			return ;
-		aux = ft_strtrim(node->args[i], quotes);
-		free(node->args[i]);
-		node->args[i] = aux;
-		i++;
 	}
 }
 

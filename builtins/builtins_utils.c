@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/04 21:03:43 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/04 21:44:37 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 		}
 		return ;
 	}
+	if (!ft_strncmp(node->args[0], "echo", 5))
+		g_exit_code = builtin_echo(node->args);
 	if (is_single)
 		exec_single_builtin(data, node);
 	else

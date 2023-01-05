@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/18 22:06:52 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/30 15:09:34 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/04 22:05:32 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,26 +30,6 @@ int	verify_operators(char *line, char op)
 		line++;
 	}
 	return (1);
-}
-
-void	trim_file_names(t_file **lst, char *quotes)
-{
-	t_file	*node;
-	char	*aux;
-
-	if (!*lst)
-		return ;
-	node = *lst;
-	while (node)
-	{
-		if (node->name)
-		{
-			aux = ft_strtrim(node->name, quotes);
-			free(node->name);
-			node->name = aux;
-		}
-		node = node->next;
-	}
 }
 
 t_cmd	*ft_split_to_cmd_lst(char *line, char delimiter)
