@@ -40,37 +40,48 @@ void	tilde_expansion(t_data data, char **s)
 	}
 }
 
+char	*get_value(t_data data, char *word)
+{
+	char	*value;
+	t_env	*aux;
+
+	if (word[1] == '?')
+		value = ft_itoa(data.exit_code);
+	else
+	{
+		aux = get_env_var(&data, word + 1);
+		if (!aux)
+			value = NULL;
+		else
+			value = ft_strdup(aux->value);
+	}
+	return (value);
+}
+
 void	env_var_substitution(t_data data, char ***s, size_t *i)
 {
 	char	*word;
 	char	*s_new;
-	t_env	*env_var;
+	char	*value;
 
 	word = ft_strcpy_until((*(*s)) + (*i), " /:");
 	if (!word)
 		return ;
 	if (word[1])
 	{
-		env_var = get_env_var(&data, word + 1);
-		if (!env_var)
+		value = get_value(data, word);
+		if (!value)
 			s_new = ft_calloc(sizeof(char), 1);
 		else
 		{
-			s_new = ft_strsubstitute((*(*s)), word, env_var->value, *i);
-			*i = *i + ft_strlen(env_var->value) - 1;
+			s_new = ft_strsubstitute((*(*s)), word, value, *i);
+			*i = *i + ft_strlen(value) - 1;
 		}
 		free((*(*s)));
 		(*(*s)) = s_new;
-		if (!s_new)
-			return (free(word));
 	}
+	free(value);
 	free(word);
-}
-
-void	get_exit_status(t_data data, char ***s)
-{
-	free((*(*s)));
-	(*(*s)) = ft_itoa(data.exit_code);
 }
 
 void	env_var_expansion(t_data data, char **s)
@@ -82,12 +93,7 @@ void	env_var_expansion(t_data data, char **s)
 	{
 		pass_through_quotes(*s, &i, NULL);
 		if ((*s)[i] == '$')
-		{
-			if ((*s)[i + 1] == '?' && !(*s)[i + 2])
-				get_exit_status(data, &s);
-			else
-				env_var_substitution(data, &s, &i);
-		}
+			env_var_substitution(data, &s, &i);
 		i++;
 	}
 }
