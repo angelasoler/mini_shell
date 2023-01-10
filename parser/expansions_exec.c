@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:08:18 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/01 23:02:31 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/10 01:00:59 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	env_var_substitution(t_data data, char ***s, size_t *i)
 	char	*value;
 
 	word = ft_strcpy_until((*(*s)) + (*i), " /:");
+	value = NULL;
 	if (!word)
 		return ;
 	if (word[1])
@@ -80,7 +81,8 @@ void	env_var_substitution(t_data data, char ***s, size_t *i)
 		free((*(*s)));
 		(*(*s)) = s_new;
 	}
-	free(value);
+	if (value)
+		free(value);
 	free(word);
 }
 
