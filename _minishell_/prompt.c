@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/01/05 23:07:43 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/10 00:53:02 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 void	analize_line(t_data *data)
 {
 	data->cmds = get_file_structures(data);
-	if (data->cmds && \
-		!ft_strchr(data->cmds->args[0], '>') && \
-		!ft_strchr(data->cmds->args[0], '<'))
+	if (data->cmds)
 		executer(data);
 	else
 	{
