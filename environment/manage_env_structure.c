@@ -11,7 +11,37 @@
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <signal.h>
+
+int	count_env_lst(t_env *lst)
+{
+	t_env	*aux;
+	int		count;
+
+	count = 0;
+	aux = lst;
+	while (aux)
+	{
+		count++;
+		aux = aux->next;
+	}
+	return (count);
+}
+
+int	count_env_var(t_env **hash_table)
+{
+	int	count;
+	int	i;
+
+	count = 0;
+	i = 0;
+	while (i < TABLE_SIZE)
+	{
+		if (hash_table[i])
+			count += count_env_lst(hash_table[i]);
+		i++;
+	}
+	return (count);
+}
 
 t_env	*ft_envnew(char	*key, char *value)
 {

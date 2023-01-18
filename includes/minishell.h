@@ -32,8 +32,9 @@ typedef struct s_data
 {
 	char	*line;
 	char	**path;
+	char	**envp;
 	int		exit_code;
-	t_main	exec;
+	t_exec	exec;
 	t_cmd	*cmds;
 	t_env	**hash_table;
 }	t_data;

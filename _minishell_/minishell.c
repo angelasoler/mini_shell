@@ -17,9 +17,17 @@ int	g_exit_code;
 int	main(int argc, char **argv, char **envp)
 {
 	t_data	data;
+	int		i;
 
+	i = 0;
 	g_exit_code = 0;
 	alloc_env_hash(envp, &data);
+	while (i < TABLE_SIZE)
+	{
+		if (data.hash_table[i])
+			print_env_lst(data.hash_table[i], 0);
+		i++;
+	}
 	while (1)
 	{
 		data.exit_code = g_exit_code;
