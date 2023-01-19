@@ -6,42 +6,11 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 15:42:49 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/10 20:50:21 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/19 02:54:22 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-
-int	count_env_lst(t_env *lst)
-{
-	t_env	*aux;
-	int		count;
-
-	count = 0;
-	aux = lst;
-	while (aux)
-	{
-		count++;
-		aux = aux->next;
-	}
-	return (count);
-}
-
-int	count_env_var(t_env **hash_table)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	while (i < TABLE_SIZE)
-	{
-		if (hash_table[i])
-			count += count_env_lst(hash_table[i]);
-		i++;
-	}
-	return (count);
-}
 
 t_env	*ft_envnew(char	*key, char *value)
 {
