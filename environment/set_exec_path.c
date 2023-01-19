@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 17:43:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/19 02:54:45 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/19 12:56:46 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,14 @@ void	alloc_envp(t_data *data, t_env *env)
 		i++;
 	while (aux)
 	{
-		key = ft_strjoin(aux->key, "=");
-		data->envp[i] = ft_strjoin(key, aux->value);
-		free(key);
+		if (aux->value)
+		{
+			key = ft_strjoin(aux->key, "=");
+			data->envp[i] = ft_strjoin(key, aux->value);
+			free(key);
+		}
+		else
+			data->envp[i] = ft_strdup(aux->key);
 		aux = aux->next;
 		i++;
 	}

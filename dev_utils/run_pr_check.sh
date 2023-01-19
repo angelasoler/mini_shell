@@ -64,7 +64,7 @@ if [ "$COMPARE" = 0 ] ; then
 	echo -e "$YELLOW ######################$RESET $CYAN Test:$RESET$GREEN OK$RESET $YELLOW #############################$RESET"
 	echo -e "$YELLOW ###############################################################$RESET"
 else
-	echo -e "$RED ###############################################################$RESET"
+	echo -e "$RED ####################### CHECK ERROR ###########################$RESET"
 	echo -e "$YELLOW$error$RESET"
 	echo -e "$RED ###############################################################$RESET"
 	exit 1
