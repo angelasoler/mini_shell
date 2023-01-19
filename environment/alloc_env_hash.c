@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 08:00:54 by vfranco-          #+#    #+#             */
-/*   Updated: 2022/12/05 21:22:19 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/19 13:13:52 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,12 @@ int	hash_table_insert(t_data *data, char *env)
 	unsigned int	index;
 	t_env			*node;
 	char			**split_line;
+	char			*value;
 
 	split_line = ft_split(env, '=');
 	index = hash(split_line[0]);
-	node = ft_envnew(split_line[0], split_line[1]);
+	value = ft_strchr(env, '=');
+	node = ft_envnew(split_line[0], value + 1);
 	free_and_count_array(split_line, free);
 	ft_env_addback(&data->hash_table[index], node);
 	return (1);
@@ -43,7 +45,7 @@ int	hash_table_insert(t_data *data, char *env)
 
 void	alloc_env_hash(char **envp, t_data *data)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	data->hash_table = ft_calloc(sizeof(t_env *), TABLE_SIZE);

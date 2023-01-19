@@ -6,12 +6,11 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/22 15:42:49 by asoler            #+#    #+#             */
-/*   Updated: 2022/12/10 20:50:21 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/19 02:54:22 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
-#include <signal.h>
 
 t_env	*ft_envnew(char	*key, char *value)
 {

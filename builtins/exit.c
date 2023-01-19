@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/08 21:35:14 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 09:22:37 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/19 12:02:27 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	builtin_exit(t_data *data, char **args)
 
 	exit_code = treat_args(args);
 	free_and_count_array(data->path, free);
+	free_and_count_array(data->envp, free);
 	free_hash_table(data);
 	ft_cmdclear(&data->cmds, free);
 	free(data->line);

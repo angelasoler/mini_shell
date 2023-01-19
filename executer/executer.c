@@ -28,25 +28,25 @@ int	count_pipes(t_cmd *head)
 
 int	init_proc_data(t_data *data)
 {
-	t_main	*main;
+	t_exec	*exec;
 	int		i;
 
 	i = 0;
-	main = &data->exec;
-	if (main->n_args > 0)
+	exec = &data->exec;
+	if (exec->n_args > 0)
 	{
-		main->inter.fd = ft_calloc(sizeof(int *), main->n_args);
-		main->inter.id = ft_calloc(sizeof(int), main->n_args + 1);
-		while (i < main->n_args)
+		exec->inter.fd = ft_calloc(sizeof(int *), exec->n_args);
+		exec->inter.id = ft_calloc(sizeof(int), exec->n_args + 1);
+		while (i < exec->n_args)
 		{
-			main->inter.fd[i] = malloc(sizeof(int) * 2);
+			exec->inter.fd[i] = malloc(sizeof(int) * 2);
 			i++;
 		}
 	}
 	else
 	{
-		main->inter.fd = NULL;
-		main->inter.id = ft_calloc(sizeof(int), 1);
+		exec->inter.fd = NULL;
+		exec->inter.id = ft_calloc(sizeof(int), 1);
 	}
 	return (init_fds(data));
 }

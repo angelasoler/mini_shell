@@ -25,7 +25,7 @@ typedef struct s_inter
 	int	*id;
 }	t_inter;
 
-typedef struct s_main
+typedef struct s_exec
 {
 	char	**argv;
 	char	**envp;
@@ -34,7 +34,7 @@ typedef struct s_main
 	int		status;
 	int		ret;
 	t_inter	inter;
-}	t_main;
+}	t_exec;
 
 int		verify_access(char *path, int mode);
 int		is_absolute_path(char *arg);

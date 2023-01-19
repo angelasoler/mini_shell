@@ -28,6 +28,7 @@ typedef struct s_env
 
 unsigned int	hash(char *name);
 t_env			*ft_envnew(char	*key, char *value);
+int				count_env_var(t_env **lst);
 void			ft_env_addback(t_env **lst, t_env *new);
 void			ft_envdelone(t_env *env, void (*del)(void*));
 void			ft_envclear(t_env **env, void (*del)(void *));
