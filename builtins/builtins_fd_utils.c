@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_single_builtin_redir.c                      :+:      :+:    :+:   */
+/*   builtins_fd_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/05 08:50:25 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 08:50:59 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/21 12:34:50 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-int	dup_close_std_fd(int *fds, int clear)
+int	dup_close_std_fd(int *fds)
 {
 	int	i;
 	int	ret;
@@ -21,13 +21,11 @@ int	dup_close_std_fd(int *fds, int clear)
 	while (i < 2)
 	{
 		ret = dup2(fds[i], i);
-		if (ret < 0 && !clear)
+		if (ret < 0)
 			return (1);
 		close(fds[i]);
 		i++;
 	}
-	if (clear)
-		free(fds);
 	return (0);
 }
 
@@ -44,7 +42,7 @@ int	*handle_single_builtins_redir(t_data *data, t_cmd *node)
 	if (!dup_fds(data, node))
 	{
 		close_file_fds(node);
-		dup_close_std_fd(save_std_fds, 0);
+		dup_close_std_fd(save_std_fds);
 		g_exit_code = 1;
 		data->exit_code = 1;
 		return (0);

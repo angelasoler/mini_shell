@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 08:50:45 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/21 12:38:44 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,7 @@ int	exec_builtin(t_data *data, t_cmd *node, int is_single)
 	}
 	exec_builtin_cmd(data, node, is_single);
 	if (is_single && !data->exec.n_args)
-		dup_close_std_fd(save_std_fds, 1);
+		dup_close_std_fd(save_std_fds);
+	free(save_std_fds);
 	return (1);
 }
