@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 21:29:01 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 07:17:14 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:49:42 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	env_parent(int pid, int *fd)
 	}
 }
 
-void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single)
+void	builtin_env(t_data *data, int export, int single)
 {
 	int	pid;
 	int	fd[2];
@@ -52,10 +52,10 @@ void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single)
 	}
 	while (i < TABLE_SIZE)
 	{
-		if (hash_table[i])
-			print_env_lst(hash_table[i], export);
+		if (data->hash_table[i])
+			print_env_lst(data->hash_table[i], export);
 		i++;
 	}
 	if (single && pid == 0)
-		exit (0);
+		builtin_exit(data, 0);
 }

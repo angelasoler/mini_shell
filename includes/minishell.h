@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:04 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/05 08:53:02 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:48:04 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	prompt(t_data *data);
 int		exec_builtin(t_data *data, t_cmd *node, int is_single);
 void	builtin_exit(t_data *data, char **exit_code);
 void	builtin_cd(t_data *data, char *path, t_cmd *node);
-void	builtin_env(t_env *hash_table[TABLE_SIZE], int export, int single);
+void	builtin_env(t_data *data, int export, int single);
 int		builtin_unset(t_data *data, char **args);
 int		builtin_export(t_data *data, char **args, int is_single);
 int		builtin_echo(char **args);
@@ -61,6 +61,7 @@ t_env	*get_env_var(t_data *data, char *key);
 void	alloc_env_hash(char **envp, t_data *data);
 void	create_replace_var(t_data *data, char *arg);
 void	set_exec_paths(t_data *data);
+void	set_envp(t_data *data);
 void	free_hash_table(t_data *data);
 int		hash_table_delete(t_data *data, char *key);
 int		hash_table_insert(t_data *data, char *env);

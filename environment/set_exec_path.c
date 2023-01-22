@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 17:43:42 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/19 12:56:46 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:07:19 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,4 @@ void	set_exec_paths(t_data *data)
 	}
 	data->path[i] = 0;
 	free_and_count_array(paths, free);
-	set_envp(data);
 }
