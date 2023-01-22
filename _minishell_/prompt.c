@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/18 21:09:10 by lufelip2          #+#    #+#             */
-/*   Updated: 2023/01/21 12:23:57 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:09:57 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void	analize_line(t_data *data)
 		ft_printf("bash: %s: sintax error\n", data->line);
 		g_exit_code = 2;
 	}
-	free_and_count_array(data->path, free);
+	if (data->path)
+		free_and_count_array(data->path, free);
+	free_and_count_array(data->envp, free);
 	ft_cmdclear(&data->cmds, free);
 	free(data->line);
 }
@@ -33,6 +35,9 @@ void	treat_ctrl_d(t_data *data)
 	{
 		free(data->line);
 		free_hash_table(data);
+		if (data->path)
+			free_and_count_array(data->path, free);
+		free_and_count_array(data->envp, free);
 		ft_printf("exit\n");
 		exit(127);
 	}
@@ -52,7 +57,9 @@ void	prompt(t_data *data)
 	else
 	{
 		free(data->line);
-		free_and_count_array(data->path, free);
+		if (data->path)
+			free_and_count_array(data->path, free);
+		free_and_count_array(data->envp, free);
 		return ;
 	}
 	signal(SIGINT, chld_sighandler);

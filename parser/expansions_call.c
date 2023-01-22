@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/22 16:08:18 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/21 11:38:06 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:18:32 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,14 +67,18 @@ void	expand_args(t_data data, t_cmd ***cmds)
 	i = 0;
 	while (args[i])
 	{
-		tilde_expansion(data, &args[i]);
-		if (*args[i] == '$' && *(args[i] + 1) != '?')
+		if (ft_strlen(args[i]) < 2)
 		{
-			if (!get_env_var(&data, args[i] + 1))
-			{
-				verify_realloc_args(&args, i);
-				continue ;
-			}
+			i++;
+			continue ;
+		}
+		tilde_expansion(data, &args[i]);
+		if (*args[i] == '$' && \
+			*(args[i] + 1) != '?' \
+			&& !get_env_var(&data, args[i] + 1))
+		{
+			verify_realloc_args(&args, i);
+			continue ;
 		}
 		env_var_expansion(data, &args[i]);
 		i++;

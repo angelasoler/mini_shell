@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/07 16:01:50 by vfranco-          #+#    #+#             */
-/*   Updated: 2023/01/19 02:38:53 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:43:38 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int	ft_exec(t_data *data, t_cmd *node)
 {
 	dup_fds(data, node);
 	close_fds(data);
+	signal(SIGPIPE, SIG_IGN);
 	if (!exec_builtin(data, node, 0))
 	{
 		execve(node->exec_cmd, node->args, data->envp);

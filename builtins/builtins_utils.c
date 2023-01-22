@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/03 23:40:27 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/21 12:38:44 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:47:29 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 	if (!ft_strncmp(node->args[0], "env", 4))
 	{
 		if (!node->args[1])
-			builtin_env(data->hash_table, 0, is_single);
+			builtin_env(data, 0, is_single);
 		else
 		{
 			print_cmd_error(node->args[1], 0);
@@ -63,7 +63,9 @@ void	exec_builtin_cmd(t_data *data, t_cmd *node, int is_single)
 int	exec_builtin(t_data *data, t_cmd *node, int is_single)
 {
 	int	*save_std_fds;
+	int	aux[2];
 
+	save_std_fds = NULL;
 	if (node->type != BUILTIN || (is_single && data->exec.n_args))
 		return (0);
 	if (is_single && !data->exec.n_args)
@@ -72,10 +74,12 @@ int	exec_builtin(t_data *data, t_cmd *node, int is_single)
 		if (!save_std_fds)
 			return (1);
 		close_file_fds(node);
+		aux[0] = save_std_fds[0];
+		aux[1] = save_std_fds[1];
+		free(save_std_fds);
 	}
 	exec_builtin_cmd(data, node, is_single);
 	if (is_single && !data->exec.n_args)
-		dup_close_std_fd(save_std_fds);
-	free(save_std_fds);
+		dup_close_std_fd(aux);
 	return (1);
 }

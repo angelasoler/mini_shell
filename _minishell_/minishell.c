@@ -6,7 +6,7 @@
 /*   By: asoler <asoler@student.42sp.org.br>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 22:57:17 by asoler            #+#    #+#             */
-/*   Updated: 2023/01/19 12:16:48 by asoler           ###   ########.fr       */
+/*   Updated: 2023/01/22 05:11:04 by asoler           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	main(int argc, char **argv, char **envp)
 		signal(SIGINT, sig_handler);
 		signal(SIGQUIT, SIG_IGN);
 		set_exec_paths(&data);
+		set_envp(&data);
 		prompt(&data);
 	}
 	(void)argc;
